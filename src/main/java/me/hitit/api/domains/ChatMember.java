@@ -3,24 +3,20 @@ package me.hitit.api.domains;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 import lombok.Data;
+import me.hitit.api.domains.pks.ChatMemberPK;
 
 @Data
 @Entity
-public class Chat {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idx")
-	private long idx;
+public class ChatMember {
 
-	@Column(name = "title")
-	private String title;
+	@EmbeddedId
+	private ChatMemberPK chatMemberPk;
 
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
+
 }

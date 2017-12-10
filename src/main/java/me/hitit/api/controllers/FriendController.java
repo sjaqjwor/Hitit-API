@@ -1,12 +1,11 @@
 package me.hitit.api.controllers;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -17,10 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import me.hitit.api.controllers.forms.AddFriendForm;
 import me.hitit.api.controllers.responses.DefaultResponse;
+import me.hitit.api.controllers.responses.DefaultResponse.Status;
 import me.hitit.api.domains.Friend;
+import me.hitit.api.domains.User;
 import me.hitit.api.services.FriendService;
+import me.hitit.api.services.UserService;
 import me.hitit.api.utils.auth.Auth;
-import me.hitit.api.utils.log.ControllerLog;
+import me.hitit.api.utils.auth.JWT;
+import me.hitit.api.utils.auth.JWT.Token;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * FriendController class.
@@ -36,20 +40,44 @@ public class FriendController {
 	@Autowired
 	private FriendService fs;
 
+	@Autowired
+	private UserService us;
+
 	@PostMapping("")
 	@Auth
-	@ControllerLog
 	@Transactional
 	public @ResponseBody ResponseEntity<DefaultResponse> addFrined(@RequestHeader("Authorization") final String jwt,
-			@RequestBody final List<AddFriendForm> aff) {
-		for(int i=0; i<aff.size(); i++) {
-			Friend f = new Friend(aff.get(i).getTargetUser(), aff.get(i).getFriendUser());
+			@ApiIgnore Friend f, @RequestBody final AddFriendForm aff) {
+
+		Token token = JWT.decode(jwt);
+		long tuidx = token.getUidx();
+		long[] fuidxs = aff.getFuidx();
+
+		User fu = new User();
+		User tu = us.getUser(tuidx);
+
+		for (long fuidx : fuidxs) {
+			fu = us.getUser(fuidx);
+			if(fuidx == tuidx) {
+				DefaultResponse dr = new DefaultResponse(Status.FAIL);
+				return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
+			} else if(fu == null) {
+				DefaultResponse dr = new DefaultResponse(Status.FAIL);
+				return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
+			}
+//			f.setFriendUser(fu);
+//			f.setTargetUser(tu);
 			fs.addFriend(f);
+			f = new Friend();
 		}
-
 		DefaultResponse dr = new DefaultResponse();
-		return new ResponseEntity<>(dr, HttpStatus.OK);
+		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
+	}
 
-		// TODO friend list save transaction;
+	@DeleteMapping("")
+	@Auth
+	public @ResponseBody ResponseEntity<DefaultResponse> deleteFriend(@RequestHeader("Authorization") final String jwt) {
+		DefaultResponse dr = new DefaultResponse();
+		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 }

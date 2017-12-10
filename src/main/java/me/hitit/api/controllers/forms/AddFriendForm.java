@@ -2,51 +2,32 @@ package me.hitit.api.controllers.forms;
 
 import org.apache.log4j.Logger;
 
-import me.hitit.api.domains.User;
-
 public class AddFriendForm {
 	private static final Logger LOG = Logger.getLogger(AddFriendForm.class.getSimpleName());
 
-	private User targetUser;
-	private User friendUser;
+	private long[] fuidx;
+	private long tuidx;
 
-	/**
-	 * Constructor.
-	 */
 	public AddFriendForm() {
-		LOG.debug("AddFriendForm");
+	}
+
+	public AddFriendForm(long[] fuidx, long tuidx) {
+		this.fuidx = fuidx;
+		this.tuidx = tuidx;
+	}
+
+	public long[] getFuidx() {
+		return fuidx;
+	}
+	public void setFuidx(long[] fuidx) {
+		this.fuidx = fuidx;
+	}
+	public long getTuidx() {
+		return tuidx;
+	}
+	public void setTuidx(long tuidx) {
+		this.tuidx = tuidx;
 	}
 
 
-	/**
-	 * Constructor.
-	 *
-	 * @param targetUser
-	 * @param friendUser
-	 */
-	public AddFriendForm(User targetUser, User friendUser) {
-		super();
-		this.targetUser = targetUser;
-		this.friendUser = friendUser;
-	}
-
-
-	public User getTargetUser() {
-		return targetUser;
-	}
-
-
-	public void setTargetUser(User targetUser) {
-		this.targetUser = targetUser;
-	}
-
-
-	public User getFriendUser() {
-		return friendUser;
-	}
-
-
-	public void setFriendUser(User friendUser) {
-		this.friendUser = friendUser;
-	}
 }

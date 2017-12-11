@@ -12,12 +12,17 @@ import javax.persistence.OneToOne;
 
 import org.apache.log4j.Logger;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Device class.
  *
  * @author yeeeah_j, devetude
  */
 @Entity
+@Data
 public class Device {
 	private static final Logger LOG = Logger.getLogger(Device.class.getSimpleName());
 
@@ -70,6 +75,9 @@ public class Device {
 			return code;
 		}
 	}
+	public Device(){
+		
+	}
 
 	public Device(long idx, User user, Type type, String uuid, String token, Timestamp ts) {
 		this.idx = idx;
@@ -77,57 +85,6 @@ public class Device {
 		this.type = type;
 		this.uuid = uuid;
 		this.token = token;
-		this.ts = ts;
-	}
-
-	public Device() {
-	}
-
-	public long getIdx() {
-		return idx;
-	}
-
-	public void setIdx(long idx) {
-		this.idx = idx;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Type getType() {
-		return type;
-	}
-
-	public void setType(Type type) {
-		this.type = type;
-	}
-
-	public String getUuid() {
-		return uuid;
-	}
-
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
-
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
-	}
-
-	public Timestamp getTs() {
-		return ts;
-	}
-
-	public void setTs(Timestamp ts) {
 		this.ts = ts;
 	}
 

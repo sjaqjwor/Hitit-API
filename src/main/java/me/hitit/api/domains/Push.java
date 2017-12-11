@@ -13,7 +13,10 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Data;
+
 @Entity
+@Data
 public class Push {
 
 	@Id
@@ -56,7 +59,6 @@ public class Push {
 		}
 	}
 
-
 	public enum Type {
 		//TODO : TYPE ���� ���ϱ�
 		UPDATE_TIMELINE(0), ADD_TIMELINE_COMMENT(1), ADD_MESSAGE(2);
@@ -72,64 +74,17 @@ public class Push {
 			return code;
 		}
 	}
-
+	
 	public Push(){
-
+		
 	}
+	
 	public Push(User user, Type type, Status status, String payload, boolean isRead){
 		this.user = user;
 		this.status = status;
 		this.type = type;
 		this.payload = payload;
 		this.isRead = isRead;
-
-
 	}
-	public long getIdx() {
-		return idx;
-	}
-	public void setIdx(long idx) {
-		this.idx = idx;
-	}
-	public Status getStatus() {
-		return status;
-	}
-	public void setStatus(Status status) {
-		this.status = status;
-	}
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
-	public Type getType() {
-		return type;
-	}
-	public void setType(Type type) {
-		this.type = type;
-	}
-	public String getPayload() {
-		return payload;
-	}
-	public void setPayload(String payload) {
-		this.payload = payload;
-	}
-	public boolean isRead() {
-		return isRead;
-	}
-	public void setRead(boolean isRead) {
-		this.isRead = isRead;
-	}
-	public Timestamp getTs() {
-		return ts;
-	}
-	public void setTs(Timestamp ts) {
-		this.ts = ts;
-	}
-
-
-
-
 
 }

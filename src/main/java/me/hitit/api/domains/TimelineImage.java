@@ -30,15 +30,13 @@ public class TimelineImage {
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;	
 	
+	public TimelineImage(){
+		
+	}
+	
 	public TimelineImage(Timeline timeline,  String contents){
 		this.timeline = timeline;
 		this.contents= contents;
 	}
-
-	
-
-
-
-
 
 }

@@ -30,13 +30,13 @@ public class TimelineMusic {
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 
+	public TimelineMusic(){
+		 
+	}
+	
 	public TimelineMusic(Timeline timeline, String contents){
 		this.timeline = timeline;
 		this.contents = contents;
 	}
-
-
-
-
 
 }

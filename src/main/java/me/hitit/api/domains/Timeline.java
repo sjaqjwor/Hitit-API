@@ -14,10 +14,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import lombok.Data;
+
 import javax.persistence.Id;
 
 
 @Entity
+@Data
 public class Timeline {
 
 	@Id
@@ -52,9 +56,9 @@ public class Timeline {
 
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
-
+	
 	public Timeline(){
-
+		
 	}
 
 	public Timeline(long idx, User user, double latitude, double longitude, short openRange, String contents,
@@ -69,55 +73,6 @@ public class Timeline {
 		this.ts = ts;
 	}
 
-
-	public long getIdx() {
-		return idx;
-	}
-
-	public void setIdx(long idx) {
-		this.idx = idx;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public double getLatitude() {
-		return latitude;
-	}
-
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
-	}
-
-	public double getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
-	}
-
-	public short getOpenRange() {
-		return openRange;
-	}
-
-	public void setOpenRange(short openRange) {
-		this.openRange = openRange;
-	}
-
-	public String getContents() {
-		return contents;
-	}
-
-	public void setContents(String contents) {
-		this.contents = contents;
-	}
-	
 	public Collection<TimelineComment> getTimelineComment(){
 		if(timelineComment ==null){
 			timelineComment = new ArrayList<TimelineComment>();
@@ -159,14 +114,4 @@ public class Timeline {
 		this.timelineMusic = timelineMusic;
 	}
 	
-	
-
-	public Timestamp getTs() {
-		return ts;
-	}
-
-	public void setTs(Timestamp ts) {
-		this.ts = ts;
-	}
-
 }

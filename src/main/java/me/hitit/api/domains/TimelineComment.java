@@ -10,7 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import lombok.Data;
+
 @Entity
+@Data
 public class TimelineComment {
 
 	@Id
@@ -32,17 +35,14 @@ public class TimelineComment {
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 
-	public TimelineComment() {
-
+	public TimelineComment(){
+		
 	}
-
+	
 	public TimelineComment(Timeline timeline, User user, String contents){
 		this.timeline = timeline;
 		this.user = user;
 		this.contents = contents;
 	}
-
-
-
 
 }

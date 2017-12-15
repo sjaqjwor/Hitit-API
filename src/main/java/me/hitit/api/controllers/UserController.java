@@ -117,7 +117,7 @@ public class UserController {
 	 */
 	@PostMapping("/sign/up")
 	@ControllerLog
-	public @ResponseBody ResponseEntity<DefaultResponse> addUser(@RequestBody final SignUpForm suf) {
+	public @ResponseBody ResponseEntity<DefaultResponse> addUser(@RequestBody final SignUpForm suf, @ApiIgnore final User u) {
 		if (us.isEmailExist(suf.getEmail())) {
 			LOG.warn(Strings.ALREADY_EXIST_EMAIL);
 
@@ -131,10 +131,11 @@ public class UserController {
 			DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.ALREADY_EXIST_PHONE_NUMBER);
 			return new ResponseEntity<>(dr, HttpStatus.SERVICE_UNAVAILABLE);
 		}
-
-		// User u = new User(suf.getEmail(), suf.getPassword(), suf.getName(),
-		// suf.getPhoneNumber());
-		// us.addUser(u);
+		u.setEmail(suf.getEmail());
+		u.setName(suf.getName());
+		u.setPassword(suf.getPassword());
+		u.setPhoneNumber(suf.getPhoneNumber());
+		us.addUser(u);
 
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<>(dr, HttpStatus.OK);

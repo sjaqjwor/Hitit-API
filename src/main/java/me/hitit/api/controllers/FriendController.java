@@ -19,6 +19,7 @@ import me.hitit.api.controllers.responses.DefaultResponse;
 import me.hitit.api.controllers.responses.DefaultResponse.Status;
 import me.hitit.api.domains.Friend;
 import me.hitit.api.domains.User;
+import me.hitit.api.domains.pks.FriendPK;
 import me.hitit.api.services.FriendService;
 import me.hitit.api.services.UserService;
 import me.hitit.api.utils.auth.Auth;
@@ -47,7 +48,7 @@ public class FriendController {
 	@Auth
 	@Transactional
 	public @ResponseBody ResponseEntity<DefaultResponse> addFrined(@RequestHeader("Authorization") final String jwt,
-			@ApiIgnore Friend f, @RequestBody final AddFriendForm aff) {
+			@ApiIgnore User u, @ApiIgnore Friend f, @ApiIgnore FriendPK fpk,@RequestBody final AddFriendForm aff) {
 
 		Token token = JWT.decode(jwt);
 		long tuidx = token.getUidx();
@@ -65,11 +66,14 @@ public class FriendController {
 				DefaultResponse dr = new DefaultResponse(Status.FAIL);
 				return new ResponseEntity<DefaultResponse>(dr, HttpStatus.SERVICE_UNAVAILABLE);
 			}
-//			f.setFriendUser(fu);
-//			f.setTargetUser(tu);
+			fpk.setFriendUser(fu);
+			fpk.setTargetUser(tu);
+			f.setFriendPk(fpk);
 			fs.addFriend(f);
 			f = new Friend();
+			fpk = new FriendPK();
 		}
+
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}

@@ -62,16 +62,6 @@ public class User {
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 
-	public User(long idx, String email, String password, String name, String phoneNumber, Device device, Timestamp ts) {
-		this.idx = idx;
-		this.email = email;
-		this.password = password;
-		this.name = name;
-		this.phoneNumber = phoneNumber;
-		this.device = device;
-		this.ts = ts;
-	}
-
 	public Collection<Timeline> getTimeline() {
 		if (timeline == null) {
 			timeline = new ArrayList<Timeline>();
@@ -103,5 +93,4 @@ public class User {
 		Collection<Push> push = getPush();
 		push.add(p);
 	}
-
 }

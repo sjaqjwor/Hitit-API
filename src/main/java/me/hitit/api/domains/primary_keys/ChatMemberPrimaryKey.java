@@ -14,12 +14,11 @@ import lombok.NoArgsConstructor;
 import me.hitit.api.domains.Chat;
 import me.hitit.api.domains.User;
 
-
 @Embeddable
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChatMemberPrimaryKey implements Serializable{
+public class ChatMemberPrimaryKey implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
@@ -28,7 +27,7 @@ public class ChatMemberPrimaryKey implements Serializable{
 	private Chat chat;
 
 	@ManyToOne
-	@JoinColumn(name="uidx")
+	@JoinColumn(name = "uidx")
 	@JsonIgnore
 	private User user;
 }

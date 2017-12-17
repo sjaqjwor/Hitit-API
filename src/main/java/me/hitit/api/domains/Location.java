@@ -19,17 +19,17 @@ import lombok.NoArgsConstructor;
 public class Location {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="idx")
+	@Column(name = "idx")
 	private long idx;
 
 	@ManyToOne
 	@JoinColumn(name = "uidx")
 	private User user;
 
-	@Column(name="latitude")
+	@Column(name = "latitude")
 	private double latitude;
 
-	@Column(name="longitude")
+	@Column(name = "longitude")
 	private double longitude;
 
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")

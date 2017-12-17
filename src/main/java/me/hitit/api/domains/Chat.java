@@ -35,10 +35,7 @@ public class Chat {
 	private Timestamp ts;
 
 	@ManyToOne
-	@JoinColumns({
-        @JoinColumn(name="cidx"),
-        @JoinColumn(name="uidx")
-	})
+	@JoinColumns({ @JoinColumn(name = "cidx"), @JoinColumn(name = "uidx") })
 	@JsonIgnore
 	private ChatMemberPrimaryKey chatMemberPk;
 }

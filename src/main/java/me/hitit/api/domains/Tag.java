@@ -27,7 +27,7 @@ public class Tag {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="idx")
+	@Column(name = "idx")
 	private long idx;
 
 	@ManyToOne

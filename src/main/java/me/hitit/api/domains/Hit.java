@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 public class Hit {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="idx")
+	@Column(name = "idx")
 	private long idx;
 
 	@ManyToOne

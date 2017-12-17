@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Data;
+
 @Entity
 @Data
 public class TimelineImage {
@@ -21,20 +22,19 @@ public class TimelineImage {
 	@ManyToOne
 	@JoinColumn(name = "tidx")
 	private Timeline timeline;
-	
+
 	@Column(name = "contents")
 	private String contents;
 
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-	private Timestamp ts;	
-	
-	public TimelineImage(){
-		
-	}
-	
-	public TimelineImage(Timeline timeline,  String contents){
-		this.timeline = timeline;
-		this.contents= contents;
+	private Timestamp ts;
+
+	public TimelineImage() {
+
 	}
 
+	public TimelineImage(Timeline timeline, String contents) {
+		this.timeline = timeline;
+		this.contents = contents;
+	}
 }

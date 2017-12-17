@@ -25,7 +25,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Id;
 
-
 @Entity
 @Data
 @NoArgsConstructor
@@ -54,19 +53,19 @@ public class Timeline {
 
 	@Column(name = "contents")
 	private String contents;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "timeline")
 	@JsonIgnore
 	private Collection<TimelineComment> timelineComment;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "timeline")
 	@JsonIgnore
 	private Collection<TimelineImage> timelineImage;
-	
+
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "timeline")
 	@JsonIgnore
 	private TimelineMusic timelineMusic;
-	
+
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "timeline")
 	@JsonIgnore
 	private Collection<Tag> tag;

@@ -19,17 +19,17 @@ import lombok.NoArgsConstructor;
 public class Message {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="idx")
+	@Column(name = "idx")
 	private Long idx;
 
 	@ManyToOne
 	@JoinColumn(name = "cidx")
 	private User user;
 
-	@Column(name="type")
+	@Column(name = "type")
 	private Type type;
 
-	@Column(name="contents",columnDefinition = "TEXT")
+	@Column(name = "contents", columnDefinition = "TEXT")
 	private String contents;
 
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")

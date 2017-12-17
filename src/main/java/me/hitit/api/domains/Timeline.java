@@ -53,6 +53,9 @@ public class Timeline {
 	
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "timeline")
 	private TimelineMusic timelineMusic;
+	
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "timeline")
+	private Collection<Tag> tag;
 
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;

@@ -15,11 +15,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 public class HititApplication {
 	private static final Logger LOG = Logger.getLogger(HititApplication.class.getSimpleName());
 
-	/**
-	 * Methods to run spring application.
-	 * 
-	 * @param args
-	 */
+
 	public static void main(String[] args) {
 		LOG.debug("main");
 

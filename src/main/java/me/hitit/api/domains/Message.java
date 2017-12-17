@@ -24,7 +24,6 @@ public class Message {
 
 	@ManyToOne
 	@JoinColumn(name = "cidx")
-	@JsonIgnore
 	private User user;
 
 	@Column(name="type")

@@ -13,8 +13,7 @@ import javax.persistence.OneToOne;
 import org.apache.log4j.Logger;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+
 
 /**
  * Device class.

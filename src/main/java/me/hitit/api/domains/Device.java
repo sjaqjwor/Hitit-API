@@ -12,10 +12,15 @@ import javax.persistence.OneToOne;
 
 import org.apache.log4j.Logger;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Device {
 	private static final Logger LOG = Logger.getLogger(Device.class.getSimpleName());
 
@@ -40,45 +45,11 @@ public class Device {
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 
-	/**
-	 * Type enum.
-	 *
-	 * @author devetude
-	 */
+	@Getter
+	@AllArgsConstructor
 	public enum Type {
 		ANDROID((short) 0), IOS((short) 1);
 
 		private short code;
-
-		/**
-		 * Constructor.
-		 *
-		 * @param code
-		 */
-		private Type(final short code) {
-			this.code = code;
-		}
-
-		/**
-		 * Methods to get code.
-		 *
-		 * @return
-		 */
-		public short getCode() {
-			return code;
-		}
 	}
-	public Device(){
-		
-	}
-
-	public Device(long idx, User user, Type type, String uuid, String token, Timestamp ts) {
-		this.idx = idx;
-		this.user = user;
-		this.type = type;
-		this.uuid = uuid;
-		this.token = token;
-		this.ts = ts;
-	}
-
 }

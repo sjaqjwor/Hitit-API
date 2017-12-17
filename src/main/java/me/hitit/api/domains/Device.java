@@ -14,12 +14,6 @@ import org.apache.log4j.Logger;
 
 import lombok.Data;
 
-
-/**
- * Device class.
- *
- * @author yeeeah_j, devetude
- */
 @Entity
 @Data
 public class Device {

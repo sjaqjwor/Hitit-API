@@ -10,14 +10,21 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Push {
+	private static final Logger LOG = Logger.getLogger(Device.class.getSimpleName());
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,47 +51,19 @@ public class Push {
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 
-
+	@Getter
+	@AllArgsConstructor
 	public enum Status {
 		FAIL(0), SUCCESS(1);
 
 		private int code;
-
-		private Status(int code) {
-			this.code = code;
-		}
-
-		public int getCode() {
-			return code;
-		}
 	}
 
+	@Getter
+	@AllArgsConstructor
 	public enum Type {
-		//TODO : TYPE ���� ���ϱ�
 		UPDATE_TIMELINE(0), ADD_TIMELINE_COMMENT(1), ADD_MESSAGE(2);
-		//ADD_NOTICE(0), UPDATE_NOTICE(1), WIFI_REQUEST(2), WIFI_REQUEST_RESULT(3);
 
 		private int code;
-
-		private Type(int code) {
-			this.code = code;
-		}
-
-		public int getCode() {
-			return code;
-		}
 	}
-	
-	public Push(){
-		
-	}
-	
-	public Push(User user, Type type, Status status, String payload, boolean isRead){
-		this.user = user;
-		this.status = status;
-		this.type = type;
-		this.payload = payload;
-		this.isRead = isRead;
-	}
-
 }

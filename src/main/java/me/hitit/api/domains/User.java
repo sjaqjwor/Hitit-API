@@ -1,7 +1,6 @@
 package me.hitit.api.domains;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -54,43 +53,11 @@ public class User {
 	private Device device;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
-	private Collection<Timeline> timeline;
+	private Collection<Timeline> timelines;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
-	private Collection<Push> push;
+	private Collection<Push> pushes;
 
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
-
-	public Collection<Timeline> getTimeline() {
-		if (timeline == null) {
-			timeline = new ArrayList<Timeline>();
-		}
-		return timeline;
-	}
-
-	public void setTimeline(Collection<Timeline> timeline) {
-		this.timeline = timeline;
-	}
-
-	public void addTimeline(Timeline t) {
-		Collection<Timeline> timeline = getTimeline();
-		timeline.add(t);
-	}
-
-	public Collection<Push> getPush() {
-		if (push == null) {
-			push = new ArrayList<Push>();
-		}
-		return push;
-	}
-
-	public void setPush(Collection<Push> push) {
-		this.push = push;
-	}
-
-	public void addPush(Push p) {
-		Collection<Push> push = getPush();
-		push.add(p);
-	}
 }

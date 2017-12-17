@@ -89,8 +89,8 @@ public class UserController {
 	public @ResponseBody ResponseEntity<DefaultResponse> getUser(@RequestHeader("Authorization") final String jwt,
 			@ApiIgnore final User u, @PathVariable("idx") final long idx) {
 		User findUser = us.getUser(idx);
-		System.out.println("dddddddddddddddddddddddddddddd"+findUser.getDevice().getIdx());
-		LOG.debug("sssssssssssssssssssssss"+findUser.getDevice().getIdx());
+		LOG.debug(findUser.getDevice().getIdx());
+
 		DefaultResponse dr = new DefaultResponse(new GetUserResponseData(findUser.getEmail(), findUser.getName()));
 		return new ResponseEntity<>(dr, HttpStatus.OK);
 	}

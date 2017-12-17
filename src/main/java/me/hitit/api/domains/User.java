@@ -19,12 +19,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * User class.
- *
- * @author devetude, cheoljin_k
- */
-
 @Entity
 @Data
 @NoArgsConstructor

@@ -19,7 +19,7 @@ import me.hitit.api.controllers.responses.DefaultResponse;
 import me.hitit.api.controllers.responses.DefaultResponse.Status;
 import me.hitit.api.domains.Friend;
 import me.hitit.api.domains.User;
-import me.hitit.api.domains.pks.FriendPK;
+import me.hitit.api.domains.primary_keys.FriendPrimaryKey;
 import me.hitit.api.services.FriendService;
 import me.hitit.api.services.UserService;
 import me.hitit.api.utils.auth.Auth;
@@ -48,7 +48,7 @@ public class FriendController {
 	@Auth
 	@Transactional
 	public @ResponseBody ResponseEntity<DefaultResponse> addFrined(@RequestHeader("Authorization") final String jwt,
-			@ApiIgnore User u, @ApiIgnore Friend f, @ApiIgnore FriendPK fpk,@RequestBody final AddFriendForm aff) {
+			@ApiIgnore User u, @ApiIgnore Friend f, @ApiIgnore FriendPrimaryKey fpk,@RequestBody final AddFriendForm aff) {
 
 		Token token = JWT.decode(jwt);
 		long tuidx = token.getUidx();
@@ -71,7 +71,7 @@ public class FriendController {
 			f.setFriendPk(fpk);
 			fs.addFriend(f);
 			f = new Friend();
-			fpk = new FriendPK();
+			fpk = new FriendPrimaryKey();
 		}
 
 		DefaultResponse dr = new DefaultResponse();

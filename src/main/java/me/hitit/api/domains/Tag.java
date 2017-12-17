@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Tag {
-	private static final Logger LOG = Logger.getLogger(Device.class.getSimpleName());
+	private static final Logger LOG = Logger.getLogger(Tag.class.getSimpleName());
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

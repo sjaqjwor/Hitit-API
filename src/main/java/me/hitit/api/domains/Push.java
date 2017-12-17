@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Push {
-	private static final Logger LOG = Logger.getLogger(Device.class.getSimpleName());
+	private static final Logger LOG = Logger.getLogger(Push.class.getSimpleName());
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -12,6 +12,8 @@ import javax.persistence.OneToOne;
 
 import org.apache.log4j.Logger;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,6 +32,7 @@ public class Device {
 
 	@OneToOne
 	@JoinColumn(name = "uidx")
+	@JsonIgnore
 	private User user;
 
 	@Column(name = "type")

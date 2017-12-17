@@ -14,7 +14,6 @@ import org.apache.log4j.Logger;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -45,11 +44,17 @@ public class Device {
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 
-	@Getter
-	@AllArgsConstructor
 	public enum Type {
 		ANDROID((short) 0), IOS((short) 1);
 
 		private short code;
+
+		private Type(short code) {
+			this.code = code;
+		}
+
+		private short getType() {
+			return code;
+		}
 	}
 }

@@ -45,25 +45,37 @@ public class Push {
 	@Column(name = "payload", columnDefinition = "TEXT")
 	private String payload;
 
-	@Column(name ="isRead")
+	@Column(name = "isRead")
 	private boolean isRead;
 
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 
-	@Getter
-	@AllArgsConstructor
 	public enum Status {
 		FAIL(0), SUCCESS(1);
 
 		private int code;
+
+		private Status(int code) {
+			this.code = code;
+		}
+
+		private int getCode() {
+			return code;
+		}
 	}
 
-	@Getter
-	@AllArgsConstructor
 	public enum Type {
 		UPDATE_TIMELINE(0), ADD_TIMELINE_COMMENT(1), ADD_MESSAGE(2);
 
 		private int code;
+
+		private Type(int code) {
+			this.code = code;
+		}
+
+		private int getType() {
+			return code;
+		}
 	}
 }

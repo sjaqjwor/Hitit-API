@@ -51,7 +51,7 @@ public class Timeline {
 	@Column(name = "openRange")
 	private short openRange;
 
-	@Column(name = "contents")
+	@Column(name = "contents", columnDefinition = "TEXT")
 	private String contents;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "timeline")

@@ -2,6 +2,7 @@ package me.hitit.api.domains;
 
 import java.sql.Timestamp;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,11 +27,8 @@ public class Location {
 	@JoinColumn(name = "uidx")
 	private User user;
 
-	@Column(name = "latitude")
-	private double latitude;
-
-	@Column(name = "longitude")
-	private double longitude;
+	@Embedded
+	private Coordinates coordinates;
 
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;

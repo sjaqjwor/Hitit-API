@@ -1,4 +1,4 @@
-package me.hitit.api.domains;
+package me.hitit.api.utils.location;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

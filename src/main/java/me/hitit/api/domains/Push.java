@@ -10,13 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import org.apache.log4j.Logger;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -24,8 +21,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Push {
-	private static final Logger LOG = Logger.getLogger(Push.class.getSimpleName());
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
@@ -60,7 +55,7 @@ public class Push {
 			this.code = code;
 		}
 
-		private int getCode() {
+		public int getCode() {
 			return code;
 		}
 	}
@@ -74,7 +69,7 @@ public class Push {
 			this.code = code;
 		}
 
-		private int getType() {
+		public int getType() {
 			return code;
 		}
 	}

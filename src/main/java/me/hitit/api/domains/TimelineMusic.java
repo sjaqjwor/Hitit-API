@@ -10,10 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class TimelineMusic {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,13 +33,4 @@ public class TimelineMusic {
 
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
-
-	public TimelineMusic() {
-
-	}
-
-	public TimelineMusic(Timeline timeline, String contents) {
-		this.timeline = timeline;
-		this.contents = contents;
-	}
 }

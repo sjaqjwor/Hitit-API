@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import me.hitit.api.domains.Tag;
 
 @Repository
-public interface TagRepository extends JpaRepository<Tag, Long>{
+public interface TagRepository extends JpaRepository<Tag, Long> {
 
 }

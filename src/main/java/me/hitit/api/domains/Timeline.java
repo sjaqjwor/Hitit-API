@@ -1,7 +1,6 @@
 package me.hitit.api.domains;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -10,12 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-
-import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,15 +21,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Id;
-
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Timeline {
-	private static final Logger LOG = Logger.getLogger(Timeline.class.getSimpleName());
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
@@ -55,20 +49,16 @@ public class Timeline {
 	private String contents;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "timeline")
-	@JsonIgnore
-	private Collection<TimelineComment> timelineComment;
+	private Collection<TimelineComment> timelineComments;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "timeline")
-	@JsonIgnore
-	private Collection<TimelineImage> timelineImage;
+	private Collection<TimelineImage> timelineImages;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "timeline")
-	@JsonIgnore
-	private TimelineMusic timelineMusic;
+	private TimelineMusic timelineMusics;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "timeline")
-	@JsonIgnore
-	private Collection<Tag> tag;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "timeline")
+	private Collection<Tag> tags;
 
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;

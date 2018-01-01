@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import me.hitit.api.utils.location.Coordinates;
 
 @Entity
 @Data
@@ -36,11 +38,8 @@ public class Timeline {
 	@JsonIgnore
 	private User user;
 
-	@Column(name = "latitude")
-	private double latitude;
-
-	@Column(name = "longitude")
-	private double longitude;
+	@Embedded
+	private Coordinates coordinates;
 
 	@Column(name = "openRange")
 	private short openRange;

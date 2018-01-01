@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
+import me.hitit.api.domains.QUser;
 import me.hitit.api.domains.User;
 import me.hitit.api.repositories.querydsls.interfaces.UserQuerydslInterface;
 
@@ -16,12 +17,11 @@ public class UserQuerydsl extends QueryDslRepositorySupport implements UserQuery
 	@PersistenceContext
 	private EntityManager em;
 
-	private JPAQueryFactory jqf;
+	private JPAQueryFactory jqf = new JPAQueryFactory(this.getEntityManager());
+	private QUser qu = QUser.user;
 
 	public UserQuerydsl() {
 		super(User.class);
-
-		jqf = new JPAQueryFactory(this.getEntityManager());
 	}
 
 	@Override

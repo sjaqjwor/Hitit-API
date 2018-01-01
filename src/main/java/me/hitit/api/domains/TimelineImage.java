@@ -28,8 +28,8 @@ public class TimelineImage {
 	@JoinColumn(name = "tidx")
 	private Timeline timeline;
 
-	@Column(name = "contents")
-	private String contents;
+	@Column(name = "objectKey")
+	private String objectKey;
 
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;

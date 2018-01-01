@@ -39,6 +39,9 @@ public class User {
 	@Column(name = "phoneNumber")
 	private String phoneNumber;
 
+	@Column(name = "profileImageKey")
+	private String profileImageKey;
+
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
 	private Device device;
 

@@ -1,41 +1,37 @@
-//package me.hitit.api.domains;
-//
-//import java.sql.Timestamp;
-//
-//import javax.persistence.Column;
-//import javax.persistence.Entity;
-//import javax.persistence.GeneratedValue;
-//import javax.persistence.GenerationType;
-//import javax.persistence.Id;
-//import javax.persistence.JoinColumn;
-//import javax.persistence.JoinColumns;
-//import javax.persistence.ManyToOne;
-//
-//import com.fasterxml.jackson.annotation.JsonIgnore;
-//
-//import lombok.AllArgsConstructor;
-//import lombok.Data;
-//import lombok.NoArgsConstructor;
-//import me.hitit.api.domains.primary_keys.ChatMemberPrimaryKey;
-//
-//@Entity
-//@Data
-//@NoArgsConstructor
-//@AllArgsConstructor
-//public class Chat {
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	@Column(name = "idx")
-//	private long idx;
-//
-//	@Column(name = "title")
-//	private String title;
-//
-//	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-//	private Timestamp ts;
-//
-//	@ManyToOne
-//	@JoinColumns({ @JoinColumn(name = "cidx"), @JoinColumn(name = "uidx") })
-//	@JsonIgnore
-//	private ChatMemberPrimaryKey chatMemberPk;
-//}
+package me.hitit.api.domains;
+
+import java.sql.Timestamp;
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Chat {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idx")
+	private long idx;
+
+	@Column(name = "title")
+	private String title;
+
+	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	private Timestamp ts;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "chat")
+	private Collection<ChatMember> chatMembers;
+}

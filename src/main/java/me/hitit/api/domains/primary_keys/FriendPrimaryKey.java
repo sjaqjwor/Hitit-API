@@ -6,8 +6,6 @@ import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,11 +20,9 @@ public class FriendPrimaryKey implements Serializable {
 
 	@ManyToOne()
 	@JoinColumn(name = "tuidx")
-	@JsonIgnore
 	private User targetUser;
 
 	@ManyToOne()
 	@JoinColumn(name = "fuidx")
-	@JsonIgnore
 	private User friendUser;
 }

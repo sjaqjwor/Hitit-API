@@ -43,7 +43,8 @@ public class ChatController {
 
 	@PutMapping("Chat/{cidx}/ChatMember/{uidx}")
 	@Auth
-	public @ResponseBody ResponseEntity<DefaultResponse> putChatMember(@RequestHeader("Authorization") final String jwt) {
+	public @ResponseBody ResponseEntity<DefaultResponse> putChatMember(
+			@RequestHeader("Authorization") final String jwt) {
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}

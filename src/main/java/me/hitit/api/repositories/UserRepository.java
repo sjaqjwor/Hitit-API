@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import me.hitit.api.domains.User;
+import me.hitit.api.repositories.querydsls.interfaces.UserQuerydslInterface;
 
 /**
  * UserRepository interface.
@@ -14,17 +15,8 @@ import me.hitit.api.domains.User;
  * @author devetude
  */
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-	/**
-	 * Methods to get a user by index.
-	 *
-	 * @param idx
-	 * @return
-	 */
-	@Query("SELECT u FROM User AS u WHERE u.idx = :idx")
-	public User getUserByIdx(final long idx);
-
-	/**
+public interface UserRepository extends JpaRepository<User, Long>,UserQuerydslInterface {
+/**
 	 * Methods to get a user by email.
 	 *
 	 * @param email

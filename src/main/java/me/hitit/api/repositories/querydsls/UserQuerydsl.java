@@ -3,6 +3,7 @@ package me.hitit.api.repositories.querydsls;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.apache.log4j.Logger;
 import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
@@ -11,9 +12,12 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import me.hitit.api.domains.QUser;
 import me.hitit.api.domains.User;
 import me.hitit.api.repositories.querydsls.interfaces.UserQuerydslInterface;
+import me.hitit.api.services.UserService;
 
 @Repository
 public class UserQuerydsl extends QueryDslRepositorySupport implements UserQuerydslInterface {
+	private static final Logger LOG = Logger.getLogger(UserQuerydsl.class.getSimpleName());
+
 	@PersistenceContext
 	private EntityManager em;
 
@@ -26,6 +30,16 @@ public class UserQuerydsl extends QueryDslRepositorySupport implements UserQuery
 
 	@Override
 	public User getUserByIdx(long idx) {
-		return null;
+		LOG.debug("get user by idx in querydsl");
+		return jqf.selectFrom(qu)
+				.where(qu.idx.eq(idx))
+				.fetchOne();
+	}
+
+	@Override
+	public User getUserByEmail(String email) {
+		return jqf.selectFrom(qu)
+				.where(qu.email.eq(email))
+				.fetchOne();
 	}
 }

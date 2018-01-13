@@ -1,5 +1,6 @@
 package me.hitit.api.domains;
 
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
@@ -15,4 +16,7 @@ import me.hitit.api.domains.primary_keys.FriendPrimaryKey;
 public class Friend {
 	@EmbeddedId
 	private FriendPrimaryKey friendPk;
+
+	@Column(name="checkBen")
+	private boolean checkBlock;
 }

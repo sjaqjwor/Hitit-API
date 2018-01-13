@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,32 +17,33 @@ import me.hitit.api.controllers.responses.DefaultResponse;
 import me.hitit.api.utils.auth.Auth;
 
 @RestController
+@RequestMapping("")
 @Api
 public class ChatController {
 	private static final Logger LOG = Logger.getLogger(ChatController.class.getSimpleName());
 
-	@GetMapping("Chats")
+	@GetMapping("chats")
 	@Auth
 	public @ResponseBody ResponseEntity<DefaultResponse> getChats(@RequestHeader("Authorization") final String jwt) {
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 
-	@PostMapping("Chat/{uidx}")
+	@PostMapping("chat/{uidx}")
 	@Auth
 	public @ResponseBody ResponseEntity<DefaultResponse> postChat(@RequestHeader("Authorization") final String jwt) {
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 
-	@PostMapping("Chat/message/{cidx}")
+	@PostMapping("chat/message/{cidx}")
 	@Auth
 	public @ResponseBody ResponseEntity<DefaultResponse> postMessage(@RequestHeader("Authorization") final String jwt) {
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 
-	@PutMapping("Chat/{cidx}/ChatMember/{uidx}")
+	@PutMapping("chat/{cidx}/chatMember/{uidx}")
 	@Auth
 	public @ResponseBody ResponseEntity<DefaultResponse> putChatMember(
 			@RequestHeader("Authorization") final String jwt) {
@@ -49,14 +51,14 @@ public class ChatController {
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 
-	@PutMapping("Chat/{cidx}")
+	@PutMapping("chat/{cidx}")
 	@Auth
 	public @ResponseBody ResponseEntity<DefaultResponse> putChatName(@RequestHeader("Authorization") final String jwt) {
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 
-	@DeleteMapping
+	@DeleteMapping("chat/{cidx}")
 	@Auth
 	public @ResponseBody ResponseEntity<DefaultResponse> deleteChat(@RequestHeader("Authorization") final String jwt) {
 		DefaultResponse dr = new DefaultResponse();

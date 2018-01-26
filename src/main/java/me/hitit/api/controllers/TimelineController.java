@@ -43,7 +43,7 @@ public class TimelineController {
 		return new ResponseEntity<>(dr, HttpStatus.OK);
 	}
 
-	@PostMapping("/timeline")
+	@PostMapping("timeline")
 	@Auth
 	public ResponseEntity<DefaultResponse> addTimeLine(@RequestHeader("Authorization") final String jwt) {
 		DefaultResponse dr = new DefaultResponse(Status.SUCCESS);
@@ -59,14 +59,14 @@ public class TimelineController {
 
 	@PutMapping("timeline/{tidx}/hits")
 	@Auth
-	public ResponseEntity<DefaultResponse> updateHit(@RequestHeader("Authorization") final String jwt) {
+	public ResponseEntity<DefaultResponse> updateTimelineHit(@RequestHeader("Authorization") final String jwt) {
 		DefaultResponse dr = new DefaultResponse(Status.SUCCESS);
 		return new ResponseEntity<>(dr, HttpStatus.OK);
 	}
 
 	@PutMapping("timeline/{tidx}/share")
 	@Auth
-	public ResponseEntity<DefaultResponse> updateShare(@RequestHeader("Authorization") final String jwt) {
+	public ResponseEntity<DefaultResponse> updateTimelineShare(@RequestHeader("Authorization") final String jwt) {
 		DefaultResponse dr = new DefaultResponse(Status.SUCCESS);
 		return new ResponseEntity<>(dr, HttpStatus.OK);
 	}

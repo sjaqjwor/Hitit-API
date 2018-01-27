@@ -1,22 +1,20 @@
 package me.hitit.api.controllers.forms;
 
-import org.apache.log4j.Logger;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * SignInForm class.
+ * UpdateUserPasswordForm class.
  * 
  * @author devetude
+ *
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SignInForm {
-	private static final Logger LOG = Logger.getLogger(SignInForm.class.getSimpleName());
-
-	private String email;
+public class UpdateUserPasswordForm {
+	private static final String TAG = UpdateUserPasswordForm.class.getSimpleName();
+	
 	private String password;
 }

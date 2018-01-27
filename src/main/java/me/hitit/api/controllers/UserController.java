@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,10 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
-import me.hitit.api.controllers.forms.CheckEmailForm;
-import me.hitit.api.controllers.forms.CheckPhoneNumberForm;
 import me.hitit.api.controllers.forms.SignInForm;
 import me.hitit.api.controllers.forms.SignUpForm;
+import me.hitit.api.controllers.forms.UpdateUserPasswordForm;
 import me.hitit.api.controllers.responses.DefaultResponse;
 import me.hitit.api.utils.auth.Auth;
 
@@ -27,9 +27,10 @@ import me.hitit.api.utils.auth.Auth;
 public class UserController {
 	private static final Logger LOG = Logger.getLogger(UserController.class.getSimpleName());
 
-	@GetMapping("user/{idx}")
+	@GetMapping("user/{uidx}")
 	@Auth
-	public @ResponseBody ResponseEntity<DefaultResponse> getUser(@RequestHeader("Authorization") String jwt) {
+	public @ResponseBody ResponseEntity<DefaultResponse> getUser(@RequestHeader("Authorization") String jwt,
+			@PathVariable("uidx") final Long uidx) {
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
@@ -42,34 +43,38 @@ public class UserController {
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 
-	@GetMapping("user/check/email")
-	public @ResponseBody ResponseEntity<DefaultResponse> checkEmail(@RequestBody final CheckEmailForm cef) {
+	@GetMapping("user/check/email/{email:.+}")
+	public @ResponseBody ResponseEntity<DefaultResponse> checkEmail(@PathVariable("email") final String email) {
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 
-	@GetMapping("user/check/phoneNumber")
+	@GetMapping("user/check/phoneNumber/{phoneNumber}")
 	public @ResponseBody ResponseEntity<DefaultResponse> checkPhoneNumber(
-			@RequestBody final CheckPhoneNumberForm cpnf) {
+			@PathVariable("phoneNumber") final String phoneNumber) {
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 
 	@PostMapping("user/sign/up")
 	public @ResponseBody ResponseEntity<DefaultResponse> signUp(@RequestBody final SignUpForm suf) {
+		// TODO : Use password encryption method.
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 
 	@PostMapping("user/sign/in")
 	public @ResponseBody ResponseEntity<DefaultResponse> signIn(@RequestBody final SignInForm sif) {
+		// TODO : Use password encryption method.
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 
-	@PutMapping("user/{idx}")
+	@PutMapping("user/{uidx}")
 	@Auth
-	public @ResponseBody ResponseEntity<DefaultResponse> putUser(@RequestHeader("Authorization") String jwt) {
+	public @ResponseBody ResponseEntity<DefaultResponse> updateUserPassword(@RequestHeader("Authorization") String jwt,
+			@PathVariable("uidx") final Long uidx, final UpdateUserPasswordForm uupf) {
+		// TODO : Use password encryption method.
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}

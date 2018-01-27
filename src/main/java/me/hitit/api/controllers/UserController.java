@@ -49,7 +49,8 @@ public class UserController {
 	}
 
 	@GetMapping("user/check/phoneNumber")
-	public @ResponseBody ResponseEntity<DefaultResponse> checkPhoneNumber(@RequestBody final CheckPhoneNumberForm cpnf) {
+	public @ResponseBody ResponseEntity<DefaultResponse> checkPhoneNumber(
+			@RequestBody final CheckPhoneNumberForm cpnf) {
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
@@ -58,7 +59,6 @@ public class UserController {
 	public @ResponseBody ResponseEntity<DefaultResponse> signUp(@RequestBody final SignUpForm suf) {
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
-
 	}
 
 	@PostMapping("user/sign/in")
@@ -73,8 +73,4 @@ public class UserController {
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
-
-
-
-
 }

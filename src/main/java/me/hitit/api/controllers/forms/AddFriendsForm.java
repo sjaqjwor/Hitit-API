@@ -1,5 +1,7 @@
 package me.hitit.api.controllers.forms;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import lombok.AllArgsConstructor;
@@ -7,16 +9,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * SignInForm class.
+ * AddFriendsForm class.
  * 
  * @author devetude
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SignInForm {
-	private static final Logger LOG = Logger.getLogger(SignInForm.class.getSimpleName());
+public class AddFriendsForm {
+	private static final Logger LOG = Logger.getLogger(AddFriendsForm.class.getSimpleName());
 
-	private String email;
-	private String password;
+	private List<String> phoneNumbers;
 }

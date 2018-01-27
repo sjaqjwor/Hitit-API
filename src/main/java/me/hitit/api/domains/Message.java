@@ -36,16 +36,6 @@ public class Message {
 	private Timestamp ts;
 
 	public enum Type {
-		NORMAL((short) 0), TIMELINE((short) 1), IMAGE((short) 2);
-
-		private short code;
-
-		private Type(final short code) {
-			this.code = code;
-		}
-
-		public short getCode() {
-			return code;
-		}
+		NORMAL, TIMELINE, IMAGE
 	}
 }

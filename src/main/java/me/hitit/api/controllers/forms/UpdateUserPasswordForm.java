@@ -7,19 +7,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * SignUpForm class.
- *
- * @author cheoljin_k
- *
+ * UpdateUserPasswordForm class.
+ * 
+ * @author devetude
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SignUpForm {
-	private static final Logger LOG = Logger.getLogger(SignUpForm.class.getSimpleName());
+public class UpdateUserPasswordForm {
+	private static final Logger LOG = Logger.getLogger(UpdateUserPasswordForm.class.getSimpleName());
 
-	private String email;
 	private String password;
-	private String name;
-	private String phoneNumber;
 }

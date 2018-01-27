@@ -22,7 +22,7 @@ public class TimelineImage {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
-	private long idx;
+	private Long idx;
 
 	@ManyToOne
 	@JoinColumn(name = "tidx")

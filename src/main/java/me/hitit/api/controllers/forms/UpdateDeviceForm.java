@@ -8,15 +8,15 @@ import lombok.NoArgsConstructor;
 import me.hitit.api.domains.Device.Type;
 
 /**
- * AddDeviceForm class.
+ * UpdateDeviceForm class.
  * 
- * @author yeeeah_j, devetude
+ * @author devetude
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddDeviceForm {
-	private static final Logger LOG = Logger.getLogger(AddDeviceForm.class.getSimpleName());
+public class UpdateDeviceForm {
+	private static final Logger LOG = Logger.getLogger(UpdateDeviceForm.class.getSimpleName());
 
 	private Type type;
 	private String uuid;

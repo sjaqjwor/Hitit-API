@@ -24,7 +24,7 @@ public class Push {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
-	private long idx;
+	private Long idx;
 
 	@Column(name = "status")
 	private Status status;
@@ -41,36 +41,16 @@ public class Push {
 	private String payload;
 
 	@Column(name = "isRead")
-	private boolean isRead;
+	private Boolean isRead;
 
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
 
 	public enum Status {
-		FAIL(0), SUCCESS(1);
-
-		private int code;
-
-		private Status(int code) {
-			this.code = code;
-		}
-
-		public int getCode() {
-			return code;
-		}
+		FAIL, SUCCESS
 	}
 
 	public enum Type {
-		UPDATE_TIMELINE(0), ADD_TIMELINE_COMMENT(1), ADD_MESSAGE(2);
-
-		private int code;
-
-		private Type(int code) {
-			this.code = code;
-		}
-
-		public int getType() {
-			return code;
-		}
+		UPDATE_TIMELINE, ADD_TIMELINE_COMMENT, ADD_MESSAGE
 	}
 }

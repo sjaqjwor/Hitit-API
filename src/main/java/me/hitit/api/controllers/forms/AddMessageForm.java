@@ -5,18 +5,19 @@ import org.apache.log4j.Logger;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import me.hitit.api.domains.Message.Type;
 
 /**
- * SignInForm class.
+ * AddMessageForm class.
  * 
  * @author devetude
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SignInForm {
-	private static final Logger LOG = Logger.getLogger(SignInForm.class.getSimpleName());
+public class AddMessageForm {
+	private static final Logger LOG = Logger.getLogger(AddMessageForm.class.getSimpleName());
 
-	private String email;
-	private String password;
+	private Type type;
+	private String contents;
 }

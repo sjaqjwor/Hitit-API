@@ -31,7 +31,7 @@ public class Timeline {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
-	private long idx;
+	private Long idx;
 
 	@ManyToOne
 	@JoinColumn(name = "uidx")
@@ -42,7 +42,7 @@ public class Timeline {
 	private Coordinates coordinates;
 
 	@Column(name = "openRange")
-	private short openRange;
+	private OpenRange openRange;
 
 	@Column(name = "contents", columnDefinition = "TEXT")
 	private String contents;
@@ -61,4 +61,8 @@ public class Timeline {
 
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
+
+	public enum OpenRange {
+		PRIVATE, FRIENDS, PUBLIC
+	}
 }

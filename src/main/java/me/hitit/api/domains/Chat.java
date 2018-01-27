@@ -24,10 +24,7 @@ public class Chat {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
-	private long idx;
-
-	@Column(name = "title")
-	private String title;
+	private Long idx;
 
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;

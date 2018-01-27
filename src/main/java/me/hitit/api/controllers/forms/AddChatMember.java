@@ -7,16 +7,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * SignInForm class.
+ * AddChatMember class.
  * 
  * @author devetude
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SignInForm {
-	private static final Logger LOG = Logger.getLogger(SignInForm.class.getSimpleName());
+public class AddChatMember {
+	private static final Logger LOG = Logger.getLogger(AddChatMember.class.getSimpleName());
 
-	private String email;
-	private String password;
+	private Long cidx;
+	private Long uidx;
 }

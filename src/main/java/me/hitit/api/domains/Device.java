@@ -24,7 +24,7 @@ public class Device {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
-	private long idx;
+	private Long idx;
 
 	@OneToOne
 	@JoinColumn(name = "uidx")
@@ -44,16 +44,6 @@ public class Device {
 	private Timestamp ts;
 
 	public enum Type {
-		ANDROID((short) 0), IOS((short) 1);
-
-		private short code;
-
-		private Type(short code) {
-			this.code = code;
-		}
-
-		public short getType() {
-			return code;
-		}
+		ANDROID, IOS
 	}
 }

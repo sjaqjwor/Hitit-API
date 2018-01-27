@@ -26,7 +26,7 @@ public class FriendController {
 	@GetMapping("friends")
 	@Auth
 	public @ResponseBody ResponseEntity<DefaultResponse> getFriends(@RequestHeader("Authorization") final String jwt,
-			@RequestParam("page") long page, @RequestParam("sort") String sort) {
+			@RequestParam("page") Long page, @RequestParam("sort") String sort) {
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
@@ -34,7 +34,7 @@ public class FriendController {
 	@GetMapping("friends/find/{keyword}")
 	@Auth
 	public @ResponseBody ResponseEntity<DefaultResponse> findFriends(@RequestHeader("Authorization") final String jwt,
-			@RequestParam("page") long page, @RequestParam("sort") String sort,
+			@RequestParam("page") Long page, @RequestParam("sort") String sort,
 			@PathVariable("keyword") final String keyword) {
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);

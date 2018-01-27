@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
+import me.hitit.api.controllers.forms.AddTimelineCommentsForm;
+import me.hitit.api.controllers.forms.UpdateTimelineCommentForm;
 import me.hitit.api.controllers.responses.DefaultResponse;
 import me.hitit.api.domains.User;
 import me.hitit.api.utils.auth.Auth;
@@ -27,29 +29,33 @@ public class TimelineCommentController {
 
 	@GetMapping("timeline/{tidx}/comments")
 	public ResponseEntity<DefaultResponse> getTimelineComments(@RequestHeader("Authorization") final String jwt,
-			@ApiIgnore final User u, @PathVariable("tidx") final long tidx, @RequestParam("page") long page,
-			@RequestParam("sort") String sort) {
+			@ApiIgnore final User u, @RequestParam("page") Long page, @RequestParam("sort") String sort,
+			@PathVariable("tidx") final Long tidx) {
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<>(dr, HttpStatus.OK);
 	}
 
-	@PostMapping("timeline/{tidx}/comment")
+	@PostMapping("timeline/comment")
 	@Auth
-	public ResponseEntity<DefaultResponse> addComment(@RequestHeader("Authorization") final String jwt) {
+	public ResponseEntity<DefaultResponse> addTimelineComment(@RequestHeader("Authorization") final String jwt,
+			final AddTimelineCommentsForm atcf) {
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<>(dr, HttpStatus.OK);
 	}
 
 	@PutMapping("timeline/{tidx}/comment/{tcidx}")
 	@Auth
-	public ResponseEntity<DefaultResponse> updateComment(@RequestHeader("Authorization") final String jwt) {
+	public ResponseEntity<DefaultResponse> updateTimelineComment(@RequestHeader("Authorization") final String jwt,
+			@PathVariable("tidx") final Long tidx, @PathVariable("tcidx") final Long tcidx,
+			final UpdateTimelineCommentForm utcf) {
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<>(dr, HttpStatus.OK);
 	}
 
 	@DeleteMapping("timeline/{tidx}/comment/{tcidx}")
 	@Auth
-	public ResponseEntity<DefaultResponse> deleteComment(@RequestHeader("Authorization") final String jwt) {
+	public ResponseEntity<DefaultResponse> deleteTimelineComment(@RequestHeader("Authorization") final String jwt,
+			@PathVariable("tidx") final Long tidx, @PathVariable("tcidx") final Long tcidx) {
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<>(dr, HttpStatus.OK);
 	}

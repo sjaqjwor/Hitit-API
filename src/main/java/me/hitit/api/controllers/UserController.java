@@ -38,7 +38,7 @@ public class UserController {
 	@GetMapping("users")
 	@Auth
 	public @ResponseBody ResponseEntity<DefaultResponse> getUsers(@RequestHeader("Authorization") String jwt,
-			@RequestParam("page") long page, @RequestParam("sort") String sort) {
+			@RequestParam("page") Long page, @RequestParam("sort") String sort) {
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}

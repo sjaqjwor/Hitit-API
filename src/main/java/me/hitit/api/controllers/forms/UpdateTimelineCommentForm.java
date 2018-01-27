@@ -7,15 +7,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * UpdateUserPasswordForm class.
+ * UpdateTimelineCommentForm class.
  * 
  * @author devetude
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateUserPasswordForm {
-	private static final Logger LOG = Logger.getLogger(UpdateUserPasswordForm.class.getSimpleName());
+public class UpdateTimelineCommentForm {
+	private static final Logger LOG = Logger.getLogger(UpdateTimelineCommentForm.class.getSimpleName());
 
-	private String password;
+	private String contents;
 }

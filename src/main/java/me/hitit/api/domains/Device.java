@@ -44,16 +44,6 @@ public class Device {
 	private Timestamp ts;
 
 	public enum Type {
-		ANDROID((short) 0), IOS((short) 1);
-
-		private short code;
-
-		private Type(short code) {
-			this.code = code;
-		}
-
-		public short getType() {
-			return code;
-		}
+		ANDROID, IOS
 	}
 }

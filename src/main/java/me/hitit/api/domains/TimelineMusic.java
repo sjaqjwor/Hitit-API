@@ -22,7 +22,7 @@ public class TimelineMusic {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
-	private long idx;
+	private Long idx;
 
 	@OneToOne
 	@JoinColumn(name = "tidx")

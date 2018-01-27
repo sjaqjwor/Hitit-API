@@ -5,14 +5,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
+import me.hitit.api.controllers.forms.AddChatMember;
+import me.hitit.api.controllers.forms.AddMessageForm;
 import me.hitit.api.controllers.responses.DefaultResponse;
 import me.hitit.api.utils.auth.Auth;
 
@@ -31,36 +33,32 @@ public class ChatController {
 
 	@PostMapping("chat/{uidx}")
 	@Auth
-	public @ResponseBody ResponseEntity<DefaultResponse> postChat(@RequestHeader("Authorization") final String jwt) {
+	public @ResponseBody ResponseEntity<DefaultResponse> addChat(@RequestHeader("Authorization") final String jwt,
+			@PathVariable("uidx") final Long uidx) {
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 
-	@PostMapping("chat/message/{cidx}")
+	@PostMapping("chat/message")
 	@Auth
-	public @ResponseBody ResponseEntity<DefaultResponse> postMessage(@RequestHeader("Authorization") final String jwt) {
+	public @ResponseBody ResponseEntity<DefaultResponse> addMessage(@RequestHeader("Authorization") final String jwt,
+			final AddMessageForm amf) {
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 
-	@PutMapping("chat/{cidx}/chatMember/{uidx}")
+	@PostMapping("chat/member")
 	@Auth
-	public @ResponseBody ResponseEntity<DefaultResponse> putChatMember(
-			@RequestHeader("Authorization") final String jwt) {
-		DefaultResponse dr = new DefaultResponse();
-		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
-	}
-
-	@PutMapping("chat/{cidx}")
-	@Auth
-	public @ResponseBody ResponseEntity<DefaultResponse> putChatName(@RequestHeader("Authorization") final String jwt) {
+	public @ResponseBody ResponseEntity<DefaultResponse> addChatMember(@RequestHeader("Authorization") final String jwt,
+			final AddChatMember acm) {
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}
 
 	@DeleteMapping("chat/{cidx}")
 	@Auth
-	public @ResponseBody ResponseEntity<DefaultResponse> deleteChat(@RequestHeader("Authorization") final String jwt) {
+	public @ResponseBody ResponseEntity<DefaultResponse> deleteChat(@RequestHeader("Authorization") final String jwt,
+			@PathVariable("cidx") final Long cidx) {
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}

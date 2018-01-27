@@ -7,15 +7,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * UpdateUserPasswordForm class.
+ * AddChatMember class.
  * 
  * @author devetude
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateUserPasswordForm {
-	private static final Logger LOG = Logger.getLogger(UpdateUserPasswordForm.class.getSimpleName());
+public class AddChatMember {
+	private static final Logger LOG = Logger.getLogger(AddChatMember.class.getSimpleName());
 
-	private String password;
+	private Long cidx;
+	private Long uidx;
 }

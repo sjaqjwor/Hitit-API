@@ -16,15 +16,6 @@ import me.hitit.api.repositories.querydsls.interfaces.UserQuerydslInterface;
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>,UserQuerydslInterface {
-/**
-	 * Methods to get a user by email.
-	 *
-	 * @param email
-	 * @return
-	 */
-	@Query("SELECT u FROM User AS u WHERE u.email = :email")
-	public User getUserByEmail(final String email);
-
 	/**
 	 * Methods to get a user by email and password.
 	 *
@@ -42,13 +33,4 @@ public interface UserRepository extends JpaRepository<User, Long>,UserQuerydslIn
 	 */
 	@Query("SELECT u FROM User AS u")
 	public List<User> getAllUsers();
-
-	/**
-	 * Methods to get user by phone number.
-	 * 
-	 * @param phoneNumber
-	 * @return
-	 */
-	@Query("SELECT u FROM User AS u WHERE u.phoneNumber = :phoneNumber")
-	public User getUserByPhoneNumber(final String phoneNumber);
 }

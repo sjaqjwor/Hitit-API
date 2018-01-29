@@ -42,4 +42,11 @@ public class UserQuerydsl extends QueryDslRepositorySupport implements UserQuery
 				.where(qu.email.eq(email))
 				.fetchOne();
 	}
+
+	@Override
+	public User getUserByPhoneNumber(String phoneNumber) {
+		return jqf.selectFrom(qu)
+				.where(qu.phoneNumber.eq(phoneNumber))
+				.fetchOne();
+	}
 }

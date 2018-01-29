@@ -1,6 +1,7 @@
 package me.hitit.api.controllers;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,12 @@ import me.hitit.api.controllers.forms.SignInForm;
 import me.hitit.api.controllers.forms.SignUpForm;
 import me.hitit.api.controllers.forms.UpdateUserPasswordForm;
 import me.hitit.api.controllers.responses.DefaultResponse;
+import me.hitit.api.controllers.responses.DefaultResponse.Status;
+import me.hitit.api.domains.User;
+import me.hitit.api.services.UserService;
 import me.hitit.api.utils.auth.Auth;
+import me.hitit.api.utils.encript.Encriptor;
+import me.hitit.api.utils.res.Strings;
 
 @RestController
 @RequestMapping("")
@@ -27,6 +33,9 @@ import me.hitit.api.utils.auth.Auth;
 public class UserController {
 	private static final Logger LOG = Logger.getLogger(UserController.class.getSimpleName());
 
+	@Autowired
+	private UserService us;
+	
 	@GetMapping("user/{uidx}")
 	@Auth
 	public @ResponseBody ResponseEntity<DefaultResponse> getUser(@RequestHeader("Authorization") String jwt,
@@ -58,7 +67,21 @@ public class UserController {
 
 	@PostMapping("user/sign/up")
 	public @ResponseBody ResponseEntity<DefaultResponse> signUp(@RequestBody final SignUpForm suf) {
-		// TODO : Use password encryption method.
+		// Use password encryption method done
+		if(us.isPhoneNumberExist(suf.getPhoneNumber())) {
+			DefaultResponse dr = new DefaultResponse(Status.FAIL,Strings.ALREADY_EXIST_PHONE_NUMBER);
+			return new ResponseEntity<>(dr,HttpStatus.UNAUTHORIZED);
+		}
+		if(us.isEmailExist(suf.getEmail())) {
+			DefaultResponse dr = new DefaultResponse(Status.FAIL,Strings.ALREADY_EXIST_EMAIL);
+			return new ResponseEntity<>(dr,HttpStatus.UNAUTHORIZED);
+		}
+		User u = new User();
+		u.setEmail(suf.getEmail());
+		u.setName(suf.getName());
+		u.setPhoneNumber(suf.getPhoneNumber());
+		u.setPassword(Encriptor.generateEncript(suf.getPassword()));
+		us.addUser(u);
 		DefaultResponse dr = new DefaultResponse();
 		return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
 	}

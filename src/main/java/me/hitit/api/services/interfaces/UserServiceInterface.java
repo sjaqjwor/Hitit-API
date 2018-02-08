@@ -1,8 +1,13 @@
 package me.hitit.api.services.interfaces;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.Map;
 
+import me.hitit.api.controllers.forms.SignUpForm;
+import me.hitit.api.controllers.forms.UpdateUserPasswordForm;
 import me.hitit.api.domains.User;
+import me.hitit.api.dtos.UserDto;
 
 /**
  * UserService interface.
@@ -22,7 +27,7 @@ public interface UserServiceInterface {
 	 * @param password
 	 * @return
 	 */
-	public User getUser(final String email, final String password);
+	public UserDto getUser(final String email, final String password);
 
 	/**
 	 * Methods to get a user by email.
@@ -30,7 +35,15 @@ public interface UserServiceInterface {
 	 * @param email
 	 * @return
 	 */
-	public User getUser(final String email);
+	public Boolean getUserByPhoneNumber(final String phoneNumber);
+
+	/**
+	 * Methods to get a user by phonenumber.
+	 *
+	 * @param email
+	 * @return
+	 */
+	public Boolean getUserByEmail(final String email);
 
 	/**
 	 * Methods to get all users.
@@ -38,7 +51,7 @@ public interface UserServiceInterface {
 	 * @param email
 	 * @return
 	 */
-	public List<User> findAll();
+	public List<UserDto> findAll();
 
 	/**
 	 * Methods to check email exist.
@@ -59,16 +72,17 @@ public interface UserServiceInterface {
 	/**
 	 * Methods to insert user.
 	 *
-	 * @param u
+	 * @param SignUpForm
 	 */
-	public void addUser(final User u);
+	public Map<Integer, Object> addUser(final SignUpForm suf) throws NoSuchAlgorithmException;
 
 	/**
 	 * Methods to update user.
 	 *
-	 * @param u
+	 * @param UpdateUserPasswordForm
+	 * @param uidx
 	 */
-	public void updateUser(final User u);
+	public UserDto updateUser(final Long uidx, final UpdateUserPasswordForm uupf) throws NoSuchAlgorithmException;
 
 	/**
 	 * Methods to delete user.

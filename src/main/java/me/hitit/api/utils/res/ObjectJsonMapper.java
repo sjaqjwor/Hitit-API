@@ -1,4 +1,4 @@
-package me.hitit.api;
+package me.hitit.api.utils.res;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author seungki
  *
  */
-public class JsonFormat {
+public class ObjectJsonMapper {
 	public static String process(Object object) throws JsonProcessingException{
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.writeValueAsString(object);

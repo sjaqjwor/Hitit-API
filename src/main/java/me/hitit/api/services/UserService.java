@@ -1,14 +1,22 @@
 package me.hitit.api.services;
 
+import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import me.hitit.api.controllers.forms.SignUpForm;
+import me.hitit.api.controllers.forms.UpdateUserPasswordForm;
 import me.hitit.api.domains.User;
+import me.hitit.api.dtos.UserDto;
 import me.hitit.api.repositories.UserRepository;
 import me.hitit.api.services.interfaces.UserServiceInterface;
+import me.hitit.api.utils.encript.Encriptor;
+import me.hitit.api.utils.res.Strings;
 
 /**
  * UserService class.
@@ -30,24 +38,46 @@ public class UserService implements UserServiceInterface {
 	}
 
 	@Override
-	public User getUser(final String email, final String password) {
+	public UserDto getUser(final String email, final String password) {
 		LOG.debug("getUser");
 
-		return ur.getUserByEmailNPassword(email, password);
+		UserDto ud = ur.getUserByEmailAndPassword(email, password);
+		if (ud == null) {
+			return null;
+		} else {
+			return ud;
+		}
 	}
 
 	@Override
-	public User getUser(final String email) {
+	public Boolean getUserByEmail(final String email) {
 		LOG.debug("getUser");
 
-		return ur.getUserByEmail(email);
+		UserDto ud = ur.getUserByEmail(email);
+		if (ud == null) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	@Override
-	public List<User> findAll() {
+	public Boolean getUserByPhoneNumber(final String phoneNumber) {
+		LOG.debug("getUser");
+
+		UserDto ud = ur.getUserByPhoneNumber(phoneNumber);
+		if (ud == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	@Override
+	public List<UserDto> findAll() {
 		LOG.debug("findAll");
-
-		return ur.getAllUsers();
+		return null;
+		// return ur.getAllUsers();
 	}
 
 	@Override
@@ -65,17 +95,37 @@ public class UserService implements UserServiceInterface {
 	}
 
 	@Override
-	public void addUser(final User u) {
+	public Map<Integer, Object> addUser(final SignUpForm suf) throws NoSuchAlgorithmException {
 		LOG.debug("addUser");
 
+		Map<Integer, Object> map = new HashMap<>();
+		if (isPhoneNumberExist(suf.getPhoneNumber())) {
+			map.put(1, Strings.ALREADY_EXIST_EMAIL);
+			return map;
+		}
+		if (isEmailExist(suf.getEmail())) {
+			map.put(1, Strings.ALREADY_EXIST_PHONE_NUMBER);
+			return map;
+		}
+		User u = User.addUser(suf, Encriptor.sha256(suf.getPassword()));
 		ur.save(u);
+		map.put(0, UserDto.getUserDto(u));
+		return map;
 	}
 
 	@Override
-	public void updateUser(final User u) {
+	public UserDto updateUser(final Long uidx, final UpdateUserPasswordForm uupf) throws NoSuchAlgorithmException {
 		LOG.debug("updateUser");
 
-		ur.save(u);
+		User u = ur.getUserByIdx(uidx);
+		if (u == null) {
+			return null;
+		} else {
+			String password = Encriptor.sha256(uupf.getPassword());
+			u.setPassword(password);
+			ur.save(u);
+			return UserDto.getUserDto(u);
+		}
 	}
 
 	@Override

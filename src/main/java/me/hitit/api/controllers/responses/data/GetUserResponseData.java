@@ -2,6 +2,8 @@ package me.hitit.api.controllers.responses.data;
 
 import org.apache.log4j.Logger;
 
+import me.hitit.api.dtos.UserDto;
+
 /**
  * GetUserResponseData class.
  * 
@@ -12,6 +14,8 @@ public class GetUserResponseData {
 
 	private String email;
 	private String name;
+	private Long idx;
+	private String profileImageKey;
 
 	/**
 	 * Constructor.
@@ -19,11 +23,22 @@ public class GetUserResponseData {
 	 * @param email
 	 * @param name
 	 */
-	public GetUserResponseData(final String email, final String name) {
+	public GetUserResponseData(final UserDto ud) {
 		LOG.debug("GetUserResponseData");
+		
+		this.idx = ud.getIdx();
+		this.email = ud.getEmail();
+		this.name = ud.getName();
+		this.profileImageKey = ud.getProfileImageKey();
+	}
 
-		this.email = email;
-		this.name = name;
+	/**
+	 * Methods to get idx.
+	 * 
+	 * @return
+	 */
+	public Long getIdx() {
+		return idx;
 	}
 
 	/**
@@ -35,6 +50,24 @@ public class GetUserResponseData {
 		LOG.debug("getEmail");
 
 		return email;
+	}
+
+	/**
+	 * Methods to get profileimageKey.
+	 * 
+	 * @return
+	 */
+	public String getProfileImageKey() {
+		return profileImageKey;
+	}
+
+	/**
+	 * Methods to set idx.
+	 * 
+	 * @param idx
+	 */
+	public void setIdx(Long idx) {
+		this.idx = idx;
 	}
 
 	/**
@@ -68,5 +101,14 @@ public class GetUserResponseData {
 		LOG.debug("setName");
 
 		this.name = name;
+	}
+
+	/**
+	 * Methods to set profileimageKey.
+	 * 
+	 * @return
+	 */
+	public void setProfileImageKey(String profileImageKey) {
+		this.profileImageKey = profileImageKey;
 	}
 }

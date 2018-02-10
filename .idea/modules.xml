@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Hitit-API.iml" filepath="$PROJECT_DIR$/Hitit-API.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Hitit-API_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Hitit-API_main.iml" group="Hitit-API" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Hitit-API_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Hitit-API_test.iml" group="Hitit-API" />
     </modules>
   </component>
 </project>

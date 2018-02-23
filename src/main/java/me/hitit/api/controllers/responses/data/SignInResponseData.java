@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
 
 /**
  * SignInResponseData class.
- * 
+ *
  * @author devetude
  */
 @Data
@@ -21,37 +21,37 @@ import org.apache.log4j.Logger;
 @NoArgsConstructor
 @Builder
 public class SignInResponseData {
-	private static final Logger LOG = Logger.getLogger(SignInResponseData.class.getSimpleName());
+    private static final Logger LOG = Logger.getLogger(SignInResponseData.class.getSimpleName());
 
-	private String token;
-	private Object user;
-	private Status status;
-	private String msg;
+    private String token;
+    private Object user;
+    private Status status;
+    private String msg;
 
-	@JsonIgnore
+    @JsonIgnore
     public Status getStatus(){
-	    return this.status  ;
+        return this.status  ;
     }
     @JsonIgnore
     public String getMsg(){
         return this.msg;
     }
 
-	public static SignInResponseData ofCreate(GetUserViewObject guvo){
-		if(guvo.getIdx()==null){
-			return builder()
-					.token(null)
-					.user(null)
-					.status(Status.NOT_FOUND)
-					.msg(Strings.CAN_NOT_FOUND_USER)
-					.build();
-		}else{
-			return builder()
-					.token(JWT.create(guvo.getIdx()))
-					.user(guvo)
-					.status(Status.SUCCESS)
-					.msg(null)
-					.build();
-		}
-	}
+    public static SignInResponseData ofCreate(GetUserViewObject guvo){
+        if(guvo.getIdx()==null){
+            return builder()
+                    .token(null)
+                    .user(null)
+                    .status(Status.NOT_FOUND)
+                    .msg(Strings.CAN_NOT_FOUND_USER)
+                    .build();
+        }else{
+            return builder()
+                    .token(JWT.create(guvo.getIdx()))
+                    .user(guvo)
+                    .status(Status.SUCCESS)
+                    .msg(null)
+                    .build();
+        }
+    }
 }

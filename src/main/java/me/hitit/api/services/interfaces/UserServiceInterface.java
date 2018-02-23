@@ -15,42 +15,42 @@ import java.security.NoSuchAlgorithmException;
  * @author devetude
  */
 public interface UserServiceInterface {
-    /**
-     * Methods to get a user by index.
-     */
-    public User getUser(final long idx);
+	/**
+	 * Methods to get a user by index.
+	 */
+	public User getUser(final long idx);
 
-    /**
-     * Methods to get a user by email and password.
-     *
-     * @param email
-     * @param password
-     * @return
-     */
-    public GetUserViewObject getUser(final String email, final String password);
+	/**
+	 * Methods to get a user by email and password.
+	 *
+	 * @param email
+	 * @param password
+	 * @return
+	 */
+	public GetUserViewObject getUser(final String email, final String password);
 
-    /**
-     * Methods to check email exist.
-     *
-     * @param email
-     * @return
-     */
-    public Boolean isEmailExist(final String email);
+	/**
+	 * Methods to check email exist.
+	 *
+	 * @param email
+	 * @return
+	 */
+	public Boolean isEmailExist(final String email);
 
-    /*
-     * Methods to insert user.
-     *
-     * @param suf
-     */
-    public SignUpViewObject addUser(final SignUpForm suf) throws NoSuchAlgorithmException;
+	/*
+	 * Methods to insert user.
+	 *
+	 * @param suf
+	 */
+	public SignUpViewObject addUser(final SignUpForm suf) throws NoSuchAlgorithmException;
 
-    /**
-     * Methods to update user.
-     *
-     * @param uupf
-     * @param uidx
-     */
-    public UpdateUserViewObject updateUser(final Long uidx, final UpdateUserPasswordForm uupf) throws NoSuchAlgorithmException;
+	/**
+	 * Methods to update user.
+	 *
+	 * @param uupf
+	 * @param uidx
+	 */
+	public UpdateUserViewObject updateUser(final Long uidx, final UpdateUserPasswordForm uupf) throws NoSuchAlgorithmException;
 
 //    /**
 //     * Methods to delete user.
@@ -60,11 +60,11 @@ public interface UserServiceInterface {
 //    public void deleteUser(final long idx);
 //
 
-    /**
-     * Methods to check phone number exist.
-     *
-     * @param phoneNumber
-     * @return
-     */
-    public Boolean isPhoneNumberExist(final String phoneNumber);
+	/**
+	 * Methods to check phone number exist.
+	 *
+	 * @param phoneNumber
+	 * @return
+	 */
+	public Boolean isPhoneNumberExist(final String phoneNumber);
 }

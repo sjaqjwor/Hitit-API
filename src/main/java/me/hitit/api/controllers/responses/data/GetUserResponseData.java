@@ -14,7 +14,7 @@ import java.util.Optional;
 
 /**
  * GetUserResponseData class.
- * 
+ *
  * @author devetude
  */
 @Data
@@ -22,14 +22,14 @@ import java.util.Optional;
 @NoArgsConstructor
 @Builder
 public class GetUserResponseData {
-	private static final Logger LOG = Logger.getLogger(GetUserResponseData.class.getSimpleName());
+    private static final Logger LOG = Logger.getLogger(GetUserResponseData.class.getSimpleName());
 
-	private Long idx;
-	private String name;
-	private String email;
-	private String profileImageKey;
-	private Status status;
-	private String msg;
+    private Long idx;
+    private String name;
+    private String email;
+    private String profileImageKey;
+    private Status status;
+    private String msg;
 
     @JsonIgnore
     public Status getStatus(){
@@ -40,15 +40,15 @@ public class GetUserResponseData {
         return this.msg;
     }
 
-	public static GetUserResponseData ofCreate(GetUserViewObject guvo){
-		return builder()
-				.idx(guvo.getIdx())
-				.name(guvo.getName())
-				.email(guvo.getEmail())
-				.profileImageKey(guvo.getProfileImageKey())
-				.status(guvo.getIdx()==null ? Status.NOT_FOUND : Status.SUCCESS)
-				.msg(guvo.getIdx()==null? Strings.CAN_NOT_FOUND_USER:null)
-				.build()
-				;
-	}
+    public static GetUserResponseData ofCreate(GetUserViewObject guvo){
+        return builder()
+                .idx(guvo.getIdx())
+                .name(guvo.getName())
+                .email(guvo.getEmail())
+                .profileImageKey(guvo.getProfileImageKey())
+                .status(guvo.getIdx()==null ? Status.NOT_FOUND : Status.SUCCESS)
+                .msg(guvo.getIdx()==null? Strings.CAN_NOT_FOUND_USER:null)
+                .build()
+                ;
+    }
 }

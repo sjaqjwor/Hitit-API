@@ -55,7 +55,7 @@ public class UserControllerTest {
     public void signIn() throws Exception {
         SignInForm sif = new SignInForm();
         sif.setEmail("seungki1993@naver.com");
-        sif.setPassword("123");
+        sif.setPassword("13");
 
         MvcResult mr = mm
                 .perform(post("/user/sign/in")
@@ -68,7 +68,7 @@ public class UserControllerTest {
     public void getUser() throws Exception {
         String token = getToken();
         MvcResult mr = mm
-                .perform(get("/user/{udix}", 118).contentType(MediaType.APPLICATION_JSON).header("Authorization", token))
+                .perform(get("/user/{udix}", 18).contentType(MediaType.APPLICATION_JSON).header("Authorization", token))
                 .andDo(print()).andExpect(status().isOk()).andReturn();
         LOG.info(mr.getResponse().getContentAsString());
     }

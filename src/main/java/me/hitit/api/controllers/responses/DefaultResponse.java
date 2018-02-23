@@ -16,11 +16,11 @@ public class DefaultResponse {
 
 	/**
 	 * Status enum.
-	 * 
+	 *
 	 * @author devetude
 	 */
 	public enum Status {
-		SUCCESS, FAIL
+		SUCCESS, FAIL,NOT_FOUND,CONFLICT
 	}
 
 	/**

@@ -1,8 +1,13 @@
 package me.hitit.api.services.interfaces;
 
-import java.util.List;
-
+import me.hitit.api.controllers.forms.SignUpForm;
+import me.hitit.api.controllers.forms.UpdateUserPasswordForm;
 import me.hitit.api.domains.User;
+import me.hitit.api.view_objects.GetUserViewObject;
+import me.hitit.api.view_objects.SignUpViewObject;
+import me.hitit.api.view_objects.UpdateUserViewObject;
+
+import java.security.NoSuchAlgorithmException;
 
 /**
  * UserService interface.
@@ -22,23 +27,7 @@ public interface UserServiceInterface {
 	 * @param password
 	 * @return
 	 */
-	public User getUser(final String email, final String password);
-
-	/**
-	 * Methods to get a user by email.
-	 *
-	 * @param email
-	 * @return
-	 */
-	public User getUser(final String email);
-
-	/**
-	 * Methods to get all users.
-	 *
-	 * @param email
-	 * @return
-	 */
-	public List<User> findAll();
+	public GetUserViewObject getUser(final String email, final String password);
 
 	/**
 	 * Methods to check email exist.
@@ -46,42 +35,36 @@ public interface UserServiceInterface {
 	 * @param email
 	 * @return
 	 */
-	public boolean isEmailExist(final String email);
+	public Boolean isEmailExist(final String email);
 
-	/**
-	 * Methods to user entity to check existence by index.
-	 *
-	 * @param idx
-	 * @return
-	 */
-	public boolean isUserExist(final long idx);
-
-	/**
+	/*
 	 * Methods to insert user.
 	 *
-	 * @param u
+	 * @param suf
 	 */
-	public void addUser(final User u);
+	public SignUpViewObject addUser(final SignUpForm suf) throws NoSuchAlgorithmException;
 
 	/**
 	 * Methods to update user.
 	 *
-	 * @param u
+	 * @param uupf
+	 * @param uidx
 	 */
-	public void updateUser(final User u);
+	public UpdateUserViewObject updateUser(final Long uidx, final UpdateUserPasswordForm uupf) throws NoSuchAlgorithmException;
 
-	/**
-	 * Methods to delete user.
-	 *
-	 * @param idx
-	 */
-	public void deleteUser(final long idx);
+//    /**
+//     * Methods to delete user.
+//     *
+//     * @param idx
+//     */
+//    public void deleteUser(final long idx);
+//
 
 	/**
 	 * Methods to check phone number exist.
-	 * 
+	 *
 	 * @param phoneNumber
 	 * @return
 	 */
-	public boolean isPhoneNumberExist(final String phoneNumber);
+	public Boolean isPhoneNumberExist(final String phoneNumber);
 }

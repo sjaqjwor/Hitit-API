@@ -12,5 +12,4 @@ public class HititApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
-
 }

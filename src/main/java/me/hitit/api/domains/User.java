@@ -14,13 +14,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import me.hitit.api.controllers.forms.SignUpForm;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,4 +56,13 @@ public class User {
 
 	@Column(name = "ts", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp ts;
+	
+	public static User addUser(final SignUpForm suf,final String password) {
+		return builder()
+				.name(suf.getName())
+				.password(password)
+				.phoneNumber(suf.getPhoneNumber())
+				.email(suf.getEmail())
+				.build();
+	}
 }

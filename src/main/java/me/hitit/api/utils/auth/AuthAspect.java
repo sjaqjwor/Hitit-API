@@ -1,7 +1,6 @@
 package me.hitit.api.utils.auth;
 
 import javax.servlet.http.HttpServletRequest;
-
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-
 import me.hitit.api.controllers.responses.DefaultResponse;
 import me.hitit.api.controllers.responses.DefaultResponse.Status;
 import me.hitit.api.domains.User;

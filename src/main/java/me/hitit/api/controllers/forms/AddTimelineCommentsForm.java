@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * AddTimelineCommentsForm class.
  * 
@@ -17,6 +19,8 @@ import lombok.NoArgsConstructor;
 public class AddTimelineCommentsForm {
 	private static final Logger LOG = Logger.getLogger(AddTimelineCommentsForm.class.getSimpleName());
 
+	@NotNull
 	private Long tidx;
+	@NotNull
 	private String contents;
 }

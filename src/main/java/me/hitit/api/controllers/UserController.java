@@ -45,16 +45,18 @@ public class UserController {
     }
 
     @GetMapping("user/check/email/{email:.+}")
+    @Auth
     public @ResponseBody
-    ResponseEntity<DefaultResponse> checkEmail(@PathVariable("email") final String email) {
+    ResponseEntity<DefaultResponse> checkEmail(@RequestHeader("Authorization") String jwt,@PathVariable("email") final String email) {
         Boolean exist = us.isEmailExist(email);
         CheckEmailResponseData cerd = CheckEmailResponseData.builder().exist(exist).build();
         return new ResponseEntity<>(new DefaultResponse(cerd), HttpStatus.OK);
     }
 
     @GetMapping("user/check/phoneNumber/{phoneNumber}")
+    @Auth
     public @ResponseBody
-    ResponseEntity<DefaultResponse> checkPhoneNumber(
+    ResponseEntity<DefaultResponse> checkPhoneNumber(@RequestHeader("Authorization") String jwt,
             @PathVariable("phoneNumber") final String phoneNumber) {
         Boolean exist = us.isPhoneNumberExist(phoneNumber);
         CheckPhoneNumberResponseData cpnrd = CheckPhoneNumberResponseData.builder().exist(exist).build();

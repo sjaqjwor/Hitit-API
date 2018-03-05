@@ -11,39 +11,39 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserRepositoryQuerydsl extends QueryDslRepositorySupport implements UserQuerydslInterface {
-	private static final Logger LOG = Logger.getLogger(UserRepositoryQuerydsl.class.getSimpleName());
+    private static final Logger LOG = Logger.getLogger(UserRepositoryQuerydsl.class.getSimpleName());
 
-	private QUser qu = QUser.user;
+    private QUser qu = QUser.user;
 
-	@Autowired
-	private JPAQueryFactory jqf;
+    @Autowired
+    private JPAQueryFactory jqf;
 
-	public UserRepositoryQuerydsl() {
-		super(User.class);
-	}
+    public UserRepositoryQuerydsl() {
+        super(User.class);
+    }
 
-	@Override
-	public User getUserByIdx(Long idx) {
-		LOG.debug("get user by idx in querydsl");
-		return from(qu).where(qu.idx.eq(idx)).fetchOne();
-	}
+    @Override
+    public User getUserByIdx(Long idx) {
+        LOG.debug("get user by idx in querydsl");
+        return from(qu).where(qu.idx.eq(idx)).fetchOne();
+    }
 
-	@Override
-	public User getUserByEmail(String email) {
-		return from(qu).where(qu.email.eq(email))
-				.fetchOne();
-	}
+    @Override
+    public User getUserByEmail(String email) {
+        return from(qu).where(qu.email.eq(email))
+                .fetchOne();
+    }
 
-	@Override
-	public User getUserByPhoneNumber(String phoneNumber) {
-		return from(qu).where(qu.phoneNumber.eq(phoneNumber))
-				.fetchOne();
-	}
+    @Override
+    public User getUserByPhoneNumber(String phoneNumber) {
+        return from(qu).where(qu.phoneNumber.eq(phoneNumber))
+                .fetchOne();
+    }
 
-	@Override
-	public User getUserByEmailAndPassword(String email, String password) {
-		return from(qu).where(qu.email.eq(email).and(qu.password.eq(password)))
-				.fetchOne();
-	}
+    @Override
+    public User getUserByEmailAndPassword(String email, String password) {
+        return from(qu).where(qu.email.eq(email).and(qu.password.eq(password)))
+                .fetchOne();
+    }
 
 }

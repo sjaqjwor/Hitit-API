@@ -13,4 +13,5 @@ import me.hitit.api.repositories.querydsls.interfaces.UserQuerydslInterface;
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>, UserQuerydslInterface {
+
 }

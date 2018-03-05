@@ -85,4 +85,5 @@ public class UserService implements UserServiceInterface {
     public Boolean isPhoneNumberExist(final String phoneNumber) {
         return ur.getUserByPhoneNumber(phoneNumber) != null;
     }
+
 }

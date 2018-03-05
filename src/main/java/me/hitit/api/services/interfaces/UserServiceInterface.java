@@ -56,4 +56,5 @@ public interface UserServiceInterface {
      * @return
      */
     public Boolean isPhoneNumberExist(final String phoneNumber);
+
 }

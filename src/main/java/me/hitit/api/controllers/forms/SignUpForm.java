@@ -28,4 +28,5 @@ public class SignUpForm {
 	private String name;
 	@NotNull
 	private String phoneNumber;
+
 }

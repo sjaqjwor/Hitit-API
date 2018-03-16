@@ -39,8 +39,15 @@ public class UserController {
     ResponseEntity<DefaultResponse> getUser(@RequestHeader("Authorization") String jwt,
                                             @PathVariable("uidx") final Long uidx) {
         User u = us.getUser(uidx);
-        UserResponseData urd = UserResponseData.builder().idx(u.getIdx()).email(u.getEmail()).name(u.getName()).profileImageKey(u.getProfileImageKey()).build();
-        GetUserResponseData gurd = GetUserResponseData.builder().userResponseData(urd).build();
+        UserResponseData urd = UserResponseData.builder()
+                .idx(u.getIdx())
+                .email(u.getEmail())
+                .name(u.getName())
+                .profileImageKey(u.getProfileImageKey())
+                .build();
+        GetUserResponseData gurd = GetUserResponseData.builder()
+                .userResponseData(urd)
+                .build();
         return new ResponseEntity<>(new DefaultResponse(gurd), HttpStatus.OK);
     }
 
@@ -48,8 +55,9 @@ public class UserController {
     @Auth
     public @ResponseBody
     ResponseEntity<DefaultResponse> checkEmail(@RequestHeader("Authorization") String jwt,@PathVariable("email") final String email) {
-        Boolean exist = us.isEmailExist(email);
-        CheckEmailResponseData cerd = CheckEmailResponseData.builder().exist(exist).build();
+        CheckEmailResponseData cerd = CheckEmailResponseData.builder()
+                .exist(us.isEmailExist(email))
+                .build();
         return new ResponseEntity<>(new DefaultResponse(cerd), HttpStatus.OK);
     }
 
@@ -58,8 +66,9 @@ public class UserController {
     public @ResponseBody
     ResponseEntity<DefaultResponse> checkPhoneNumber(@RequestHeader("Authorization") String jwt,
             @PathVariable("phoneNumber") final String phoneNumber) {
-        Boolean exist = us.isPhoneNumberExist(phoneNumber);
-        CheckPhoneNumberResponseData cpnrd = CheckPhoneNumberResponseData.builder().exist(exist).build();
+        CheckPhoneNumberResponseData cpnrd = CheckPhoneNumberResponseData.builder()
+                .exist(us.isPhoneNumberExist(phoneNumber))
+                .build();
         return new ResponseEntity<>(new DefaultResponse(cpnrd), HttpStatus.OK);
     }
 
@@ -67,7 +76,6 @@ public class UserController {
     public @ResponseBody
     ResponseEntity<DefaultResponse> signUp(@Valid @RequestBody final SignUpForm suf)
             throws NoSuchAlgorithmException {
-        // Use password encryption method done
         us.addUser(suf);
         return new ResponseEntity<>(new DefaultResponse(Status.SUCCESS), HttpStatus.OK);
     }
@@ -77,8 +85,16 @@ public class UserController {
     ResponseEntity<DefaultResponse> signIn(@Valid @RequestBody final SignInForm sif)
             throws NoSuchAlgorithmException {
         User u = us.getUser(sif.getEmail(), Encriptor.sha256(sif.getPassword()));
-        UserResponseData urd = UserResponseData.builder().idx(u.getIdx()).email(u.getEmail()).name(u.getName()).profileImageKey(u.getProfileImageKey()).build();
-        GetUserSignInResponseData usird = GetUserSignInResponseData.builder().token(JWT.create(urd.getIdx())).userResponseData(urd).build();
+        UserResponseData urd = UserResponseData.builder()
+                .idx(u.getIdx())
+                .email(u.getEmail())
+                .name(u.getName())
+                .profileImageKey(u.getProfileImageKey())
+                .build();
+        GetUserSignInResponseData usird = GetUserSignInResponseData.builder()
+                .token(JWT.create(urd.getIdx()))
+                .userResponseData(urd)
+                .build();
         return new ResponseEntity<>(new DefaultResponse(usird), HttpStatus.OK);
     }
 
@@ -89,8 +105,15 @@ public class UserController {
             @Valid @RequestHeader("Authorization") String jwt, @PathVariable("uidx") final Long uidx,
             @RequestBody final UpdateUserPasswordForm uupf) throws NoSuchAlgorithmException {
         User u = us.updateUser(uidx, uupf);
-        UserResponseData urd = UserResponseData.builder().idx(u.getIdx()).email(u.getEmail()).name(u.getName()).profileImageKey(u.getProfileImageKey()).build();
-        GetUserResponseData gurd = GetUserResponseData.builder().userResponseData(urd).build();
+        UserResponseData urd = UserResponseData.builder()
+                .idx(u.getIdx())
+                .email(u.getEmail())
+                .name(u.getName())
+                .profileImageKey(u.getProfileImageKey())
+                .build();
+        GetUserResponseData gurd = GetUserResponseData.builder()
+                .userResponseData(urd)
+                .build();
         return new ResponseEntity<>(new DefaultResponse(gurd), HttpStatus.OK);
     }
 

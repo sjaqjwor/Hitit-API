@@ -5,13 +5,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * JsonFormat.class
- * 
- * @author seungki
  *
+ * @author seungki
  */
 public class ObjectJsonMapper {
-	public static String process(Object object) throws JsonProcessingException{
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.writeValueAsString(object);
+    static ObjectMapper om;
+    public static String process(Object object) throws JsonProcessingException {
+        om = new ObjectMapper();
+        return om.writeValueAsString(object);
     }
 }

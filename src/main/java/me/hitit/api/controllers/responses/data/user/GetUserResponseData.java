@@ -12,11 +12,10 @@ import org.apache.log4j.Logger;
  * @author devetude
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
 public class GetUserResponseData {
     private static final Logger LOG = Logger.getLogger(GetUserResponseData.class.getSimpleName());
 
     private UserResponseData userResponseData;
+
 }

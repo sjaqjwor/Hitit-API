@@ -20,7 +20,7 @@ public class DefaultResponse {
 	 * @author devetude
 	 */
 	public enum Status {
-		SUCCESS, FAIL,NOT_FOUND,CONFLICT
+		SUCCESS, FAIL, NOT_FOUND, CONFLICT
 	}
 
 	/**

@@ -23,4 +23,5 @@ public class SignInForm {
 	private String email;
 	@NotNull
 	private String password;
+
 }

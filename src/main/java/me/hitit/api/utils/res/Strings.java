@@ -14,5 +14,6 @@ public class Strings {
 	public static final String DELETE_OLD_DEVICE = "Delete old device.";
 	public static final String CAN_NOT_FOUND_DEVICE = "Can not found device.";
 	public static final String ALREADY_EXIST_PHONE_NUMBER = "Already exist phone number.";
-	public static final String CAN_NOT_FOUND_ALGORITHM = "CAN_NOT_FOUND_ALGORITHM.";
+	public static final String CAN_NOT_FOUND_ALGORITHM = "Can not found algorithm.";
+
 }

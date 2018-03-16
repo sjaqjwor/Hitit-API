@@ -34,4 +34,5 @@ public class HititApplication {
 	public JPAQueryFactory queryFactory() {
 		return new JPAQueryFactory(em);
 	}
+
 }

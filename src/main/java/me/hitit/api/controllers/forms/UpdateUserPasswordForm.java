@@ -21,4 +21,5 @@ public class UpdateUserPasswordForm {
 
 	@NotNull
 	private String password;
+
 }

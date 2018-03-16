@@ -7,12 +7,11 @@ import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
 public class GetUserSignInResponseData {
     private static final Logger LOG = Logger.getLogger(GetUserSignInResponseData.class);
 
     private String token;
     private UserResponseData userResponseData;
+
 }

@@ -1,19 +1,14 @@
 package me.hitit.api.repositories.querydsls;
 
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import me.hitit.api.domains.QUser;
 import me.hitit.api.domains.User;
 import me.hitit.api.repositories.querydsls.interfaces.UserQuerydslInterface;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserRepositoryQuerydsl extends QueryDslRepositorySupport implements UserQuerydslInterface {
     private QUser qu = QUser.user;
-
-    @Autowired
-    private JPAQueryFactory jqf;
 
     public UserRepositoryQuerydsl() {
         super(User.class);

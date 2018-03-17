@@ -1,23 +1,16 @@
 package me.hitit.api.controllers.forms;
 
-import java.util.List;
-
-import org.apache.log4j.Logger;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
-/**
- * AddFriendsForm class.
- * 
- * @author devetude
- */
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddFriendsForm {
-	private static final Logger LOG = Logger.getLogger(AddFriendsForm.class.getSimpleName());
-
-	private List<String> phoneNumbers;
+    @NonNull
+    private List<String> phoneNumbers;
 }

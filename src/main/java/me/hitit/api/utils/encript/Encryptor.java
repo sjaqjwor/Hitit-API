@@ -3,12 +3,7 @@ package me.hitit.api.utils.encript;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-/**
- * Encriptor.class
- *
- * @author seungki
- */
-public class Encriptor {
+public class Encryptor {
     public static String sha256(String password) throws NoSuchAlgorithmException {
         StringBuffer sb = new StringBuffer();
         MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -18,5 +13,4 @@ public class Encriptor {
         }
         return sb.toString();
     }
-
 }

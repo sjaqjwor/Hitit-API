@@ -28,7 +28,7 @@ public class QTimeline extends EntityPathBase<Timeline> {
 
     public final NumberPath<Long> idx = createNumber("idx", Long.class);
 
-    public final NumberPath<Short> openRange = createNumber("openRange", Short.class);
+    public final EnumPath<Timeline.OpenRange> openRange = createEnum("openRange", Timeline.OpenRange.class);
 
     public final CollectionPath<Tag, QTag> tags = this.<Tag, QTag>createCollection("tags", Tag.class, QTag.class, PathInits.DIRECT2);
 

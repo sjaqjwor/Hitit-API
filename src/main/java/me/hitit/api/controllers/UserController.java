@@ -13,9 +13,8 @@ import me.hitit.api.exceptions.user.UserNotFoundException;
 import me.hitit.api.services.UserService;
 import me.hitit.api.utils.auth.Auth;
 import me.hitit.api.utils.auth.JWT;
-import me.hitit.api.utils.encript.Encriptor;
+import me.hitit.api.utils.encript.Encryptor;
 import me.hitit.api.utils.res.Strings;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,16 +27,14 @@ import java.security.NoSuchAlgorithmException;
 @RequestMapping("")
 @Api
 public class UserController {
-    private static final Logger LOG = Logger.getLogger(UserController.class.getSimpleName());
-
     @Autowired
     private UserService us;
 
     @GetMapping("user/{uidx}")
     @Auth
-    public @ResponseBody
-    ResponseEntity<DefaultResponse> getUser(@RequestHeader("Authorization") String jwt,
-                                            @PathVariable("uidx") final Long uidx) {
+    @ResponseBody
+    public ResponseEntity<DefaultResponse> getUser(
+            @RequestHeader("Authorization") String jwt, @PathVariable("uidx") Long uidx) {
         User u = us.getUser(uidx);
         UserResponseData urd = UserResponseData.builder()
                 .idx(u.getIdx())
@@ -53,8 +50,9 @@ public class UserController {
 
     @GetMapping("user/check/email/{email:.+}")
     @Auth
-    public @ResponseBody
-    ResponseEntity<DefaultResponse> checkEmail(@RequestHeader("Authorization") String jwt,@PathVariable("email") final String email) {
+    @ResponseBody
+    public ResponseEntity<DefaultResponse> checkEmail(
+            @RequestHeader("Authorization") String jwt, @PathVariable("email") String email) {
         CheckEmailResponseData cerd = CheckEmailResponseData.builder()
                 .exist(us.isEmailExist(email))
                 .build();
@@ -63,9 +61,9 @@ public class UserController {
 
     @GetMapping("user/check/phoneNumber/{phoneNumber}")
     @Auth
-    public @ResponseBody
-    ResponseEntity<DefaultResponse> checkPhoneNumber(@RequestHeader("Authorization") String jwt,
-            @PathVariable("phoneNumber") final String phoneNumber) {
+    @ResponseBody
+    public ResponseEntity<DefaultResponse> checkPhoneNumber(
+            @RequestHeader("Authorization") String jwt, @PathVariable("phoneNumber") String phoneNumber) {
         CheckPhoneNumberResponseData cpnrd = CheckPhoneNumberResponseData.builder()
                 .exist(us.isPhoneNumberExist(phoneNumber))
                 .build();
@@ -73,18 +71,17 @@ public class UserController {
     }
 
     @PostMapping("user/sign/up")
-    public @ResponseBody
-    ResponseEntity<DefaultResponse> signUp(@Valid @RequestBody final SignUpForm suf)
-            throws NoSuchAlgorithmException {
+    @ResponseBody
+    public ResponseEntity<DefaultResponse> signUp(@Valid @RequestBody SignUpForm suf) throws NoSuchAlgorithmException {
         us.addUser(suf);
         return new ResponseEntity<>(new DefaultResponse(Status.SUCCESS), HttpStatus.OK);
     }
 
     @PostMapping("user/sign/in")
-    public @ResponseBody
-    ResponseEntity<DefaultResponse> signIn(@Valid @RequestBody final SignInForm sif)
+    @ResponseBody
+    public ResponseEntity<DefaultResponse> signIn(@Valid @RequestBody SignInForm sif)
             throws NoSuchAlgorithmException {
-        User u = us.getUser(sif.getEmail(), Encriptor.sha256(sif.getPassword()));
+        User u = us.getUser(sif.getEmail(), Encryptor.sha256(sif.getPassword()));
         UserResponseData urd = UserResponseData.builder()
                 .idx(u.getIdx())
                 .email(u.getEmail())
@@ -100,10 +97,10 @@ public class UserController {
 
     @PutMapping("user/{uidx}")
     @Auth
-    public @ResponseBody
-    ResponseEntity<DefaultResponse> updateUserPassword(
-            @Valid @RequestHeader("Authorization") String jwt, @PathVariable("uidx") final Long uidx,
-            @RequestBody final UpdateUserPasswordForm uupf) throws NoSuchAlgorithmException {
+    @ResponseBody
+    public ResponseEntity<DefaultResponse> updateUserPassword(
+            @Valid @RequestHeader("Authorization") String jwt, @PathVariable("uidx") Long uidx,
+            @RequestBody UpdateUserPasswordForm uupf) throws NoSuchAlgorithmException {
         User u = us.updateUser(uidx, uupf);
         UserResponseData urd = UserResponseData.builder()
                 .idx(u.getIdx())
@@ -132,5 +129,4 @@ public class UserController {
     public ResponseEntity<?> userConflictException(UserConflictException uce) {
         return new ResponseEntity<>(new DefaultResponse(Status.CONFLICT, uce.getMessage()), HttpStatus.OK);
     }
-
 }

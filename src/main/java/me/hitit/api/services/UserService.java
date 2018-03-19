@@ -31,30 +31,22 @@ public class UserService implements UserServiceInterface {
 
     @Override
     public User getUser(final long idx) {
-        LOG.debug("getUser");
-
         return Optional.ofNullable(ur.getUserByIdx(idx)).orElseThrow(UserNotFoundException::new);
     }
 
     @Override
     public User getUser(final String email, final String password) {
-        LOG.debug("getUser");
-
         return Optional.ofNullable(ur.getUserByEmailAndPassword(email, password)).orElseThrow(UserNotFoundException::new);
     }
 
 
     @Override
     public Boolean isEmailExist(final String email) {
-        LOG.debug("isUserExist");
-
         return ur.getUserByEmail(email) != null;
     }
 
     @Override
     public void addUser(final SignUpForm suf) throws NoSuchAlgorithmException {
-        LOG.debug("addUser");
-
         if (isPhoneNumberExist(suf.getPhoneNumber())) {
             throw new UserConflictException(Strings.ALREADY_EXIST_PHONE_NUMBER);
         }
@@ -72,8 +64,6 @@ public class UserService implements UserServiceInterface {
 
     @Override
     public User updateUser(final Long uidx, final UpdateUserPasswordForm uupf) throws NoSuchAlgorithmException {
-        LOG.debug("updateUser");
-
         User u = Optional.ofNullable(ur.getUserByIdx(uidx)).orElseThrow(UserNotFoundException::new);
         String password = Encriptor.sha256(uupf.getPassword());
         u.setPassword(password);

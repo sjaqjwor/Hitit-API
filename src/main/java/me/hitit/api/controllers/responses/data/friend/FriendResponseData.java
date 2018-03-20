@@ -1,7 +1,11 @@
 package me.hitit.api.controllers.responses.data.friend;
 
+import lombok.Builder;
+import lombok.Data;
 import lombok.NonNull;
 
+@Data
+@Builder
 public class FriendResponseData {
     @NonNull
     private Long fuidx;
@@ -12,5 +16,5 @@ public class FriendResponseData {
     @NonNull
     private String email;
     @NonNull
-    private Boolean checkBen;
+    private Boolean checkBlock;
 }

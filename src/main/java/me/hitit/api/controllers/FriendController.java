@@ -31,7 +31,7 @@ public class FriendController {
     @Auth
     @ResponseBody
     public ResponseEntity<DefaultResponse> getFriends(
-            @RequestHeader("Authorization") String jwt, @RequestParam("page") Long page,
+            @Valid @RequestHeader("Authorization") String jwt, @RequestParam("page") Long page,
             @RequestParam("sort") String sort, @ApiIgnore User u) throws Exception {
         List<Friend> friends = fs.getFriends(u.getIdx(), sort, page);
         List<FriendResponseData> frds = friends.stream().map(f -> FriendResponseData.builder()
@@ -50,7 +50,7 @@ public class FriendController {
     @Auth
     @ResponseBody
     public ResponseEntity<DefaultResponse> findFriends(
-            @RequestHeader("Authorization") String jwt, @RequestParam("page") Long page,
+            @Valid @RequestHeader("Authorization") String jwt, @RequestParam("page") Long page,
             @RequestParam("sort") String sort, @PathVariable("keyword") String keyword, @ApiIgnore User u) {
         List<Friend> friends = fs.getFindFriends(u.getIdx(), sort, page, keyword);
         List<FriendResponseData> frds = friends.stream().map(f -> FriendResponseData.builder()
@@ -68,7 +68,7 @@ public class FriendController {
     @PutMapping("friends")
     @Auth
     @ResponseBody
-    public ResponseEntity<DefaultResponse> addFriends(@RequestHeader("Authorization") String jwt, AddFriendsForm aff) {
+    public ResponseEntity<DefaultResponse> addFriends(@Valid @RequestHeader("Authorization") String jwt, AddFriendsForm aff) {
         DefaultResponse dr = new DefaultResponse();
         return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
     }

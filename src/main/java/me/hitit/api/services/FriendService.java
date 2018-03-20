@@ -35,11 +35,11 @@ public class FriendService implements FriendServiceInterface {
     public Friend updateFriendBlock(Long tuidx, Long fuidx, UpdateFriendBlockForm ufbf) {
         Friend f = fr.updateFriend(tuidx, fuidx);
         if (f.getCheckBlock() == true) {
-            ufbf.setCheckBen(false);
-            f.setCheckBlock(ufbf.getCheckBen());
+            ufbf.setCheckBlock(false);
+            f.setCheckBlock(ufbf.getCheckBlock());
         } else if (f.getCheckBlock() == false) {
-            ufbf.setCheckBen(true);
-            f.setCheckBlock(ufbf.getCheckBen());
+            ufbf.setCheckBlock(true);
+            f.setCheckBlock(ufbf.getCheckBlock());
         }
         fr.save(f);
         return f;

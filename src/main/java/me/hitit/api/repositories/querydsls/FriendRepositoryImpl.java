@@ -14,11 +14,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class FriendRepositoryQuerydsl extends QueryDslRepositorySupport implements FriendQuerydslInterface {
+public class FriendRepositoryImpl extends QueryDslRepositorySupport implements FriendQuerydslInterface {
     private QFriend qf = QFriend.friend;
     private QUser qu = QUser.user;
 
-    public FriendRepositoryQuerydsl() {
+    public FriendRepositoryImpl() {
         super(Friend.class);
     }
 

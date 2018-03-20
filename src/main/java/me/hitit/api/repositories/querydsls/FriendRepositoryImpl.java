@@ -15,8 +15,8 @@ import java.util.List;
 
 @Repository
 public class FriendRepositoryImpl extends QueryDslRepositorySupport implements FriendQuerydslInterface {
-    private QFriend qf = QFriend.friend;
-    private QUser qu = QUser.user;
+    private final QFriend qf = QFriend.friend;
+    private final QUser qu = QUser.user;
 
     public FriendRepositoryImpl() {
         super(Friend.class);

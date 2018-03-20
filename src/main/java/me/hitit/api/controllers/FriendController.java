@@ -70,7 +70,7 @@ public class FriendController {
     @ResponseBody
     public ResponseEntity<DefaultResponse> addFriends(@Valid @RequestHeader("Authorization") String jwt, AddFriendsForm aff) {
         DefaultResponse dr = new DefaultResponse();
-        return new ResponseEntity<DefaultResponse>(dr, HttpStatus.OK);
+        return new ResponseEntity<>(dr, HttpStatus.OK);
     }
 
     @PutMapping("friend/block/{fuidx}")

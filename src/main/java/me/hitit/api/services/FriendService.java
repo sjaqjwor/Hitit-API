@@ -34,10 +34,10 @@ public class FriendService implements FriendServiceInterface {
     @Override
     public Friend updateFriendBlock(Long tuidx, Long fuidx, UpdateFriendBlockForm ufbf) {
         Friend f = fr.updateFriend(tuidx, fuidx);
-        if (f.getCheckBlock() == true) {
+        if (f.getCheckBlock()) {
             ufbf.setCheckBlock(false);
             f.setCheckBlock(ufbf.getCheckBlock());
-        } else if (f.getCheckBlock() == false) {
+        } else if (!f.getCheckBlock()) {
             ufbf.setCheckBlock(true);
             f.setCheckBlock(ufbf.getCheckBlock());
         }

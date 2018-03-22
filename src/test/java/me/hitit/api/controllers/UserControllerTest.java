@@ -45,8 +45,12 @@ public class UserControllerTest {
         suf.setName("승기");
         suf.setPassword("s556320");
         MvcResult mr = mm
-                .perform(post("/user/sign/up").contentType(MediaType.APPLICATION_JSON).content(ObjectJsonMapper.process(suf)))
-                .andDo(print()).andExpect(status().isOk()).andReturn();
+                .perform(post("/user/sign/up")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(ObjectJsonMapper.process(suf)))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
 
         LOG.info(mr.getResponse().toString());
     }
@@ -59,8 +63,11 @@ public class UserControllerTest {
 
         MvcResult mr = mm
                 .perform(post("/user/sign/in")
-                        .content(ObjectJsonMapper.process(sif)).contentType(MediaType.APPLICATION_JSON))
-                .andDo(print()).andExpect(status().isOk()).andReturn();
+                        .content(ObjectJsonMapper.process(sif))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
         LOG.info(mr.getResponse().toString());
     }
 
@@ -68,8 +75,12 @@ public class UserControllerTest {
     public void getUser() throws Exception {
         String token = getToken();
         MvcResult mr = mm
-                .perform(get("/user/{udix}", 18).contentType(MediaType.APPLICATION_JSON).header("Authorization", token))
-                .andDo(print()).andExpect(status().isOk()).andReturn();
+                .perform(get("/user/{udix}", 18)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", token))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
         LOG.info(mr.getResponse().getContentAsString());
     }
 
@@ -79,9 +90,13 @@ public class UserControllerTest {
         UpdateUserPasswordForm uupf = new UpdateUserPasswordForm();
         uupf.setPassword("13");
         MvcResult mr = mm
-                .perform(put("/user/{uidx}", "23").contentType(MediaType.APPLICATION_JSON)
-                        .header("Authorization", token).content(ObjectJsonMapper.process(uupf)))
-                .andDo(print()).andExpect(status().isOk()).andReturn();
+                .perform(put("/user/{uidx}", "23")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", token)
+                        .content(ObjectJsonMapper.process(uupf)))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
         LOG.info(mr.getResponse().getContentAsString());
     }
 
@@ -90,8 +105,11 @@ public class UserControllerTest {
         String token = getToken();
         MvcResult mr = mm
                 .perform(get("/user/check/email/{email:.+}", "yeeeah_j@n1aver.com")
-                        .contentType(MediaType.APPLICATION_JSON).header("Authorization", token))
-                .andDo(print()).andExpect(status().isOk()).andReturn();
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", token))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
         LOG.info(mr.getResponse().getContentAsString());
     }
 
@@ -100,8 +118,11 @@ public class UserControllerTest {
         String token = getToken();
         MvcResult mr = mm
                 .perform(get("/user/check/phoneNumber/{phoneNumber}", "010914769f76")
-                        .contentType(MediaType.APPLICATION_JSON).header("Authorization", token))
-                .andDo(print()).andExpect(status().isOk()).andReturn();
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", token))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
         LOG.info(mr.getResponse().getContentAsString());
     }
 
@@ -112,8 +133,11 @@ public class UserControllerTest {
         sif.setPassword("13");
 
         MvcResult mr = mm
-                .perform(post("/user/sign/in").contentType(MediaType.APPLICATION_JSON).content(ObjectJsonMapper.process(sif)))
-                .andDo(print()).andExpect(status().isOk()).andReturn();
+                .perform(post("/user/sign/in")
+                        .contentType(MediaType.APPLICATION_JSON).content(ObjectJsonMapper.process(sif)))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
         String token = mr.getResponse().getContentAsString().split(",")[1].split(":")[2].replaceAll("\"", "");
         return token;
     }

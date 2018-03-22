@@ -17,7 +17,6 @@ import java.util.List;
 
 @Service("TimelineCommentService")
 public class TimelineCommentService implements TimelineCommentServiceInterface {
-    private static final Logger LOG = Logger.getLogger(TimelineCommentService.class);
 
     @Autowired
     private TimelineCommentRepository tcr;
@@ -38,12 +37,15 @@ public class TimelineCommentService implements TimelineCommentServiceInterface {
 
     @Override
     public void addTimelineComment(final User u, final AddTimelineCommentsForm atcf) {
-        System.err.println(atcf.getTidx() + "asdasd");
         Timeline t = tr.findByIdx(atcf.getTidx());
         if (t == null) {
             throw new TimelineNotFoundException();
         }
-        tcr.save(TimelineComment.builder().contents(atcf.getContents()).timeline(t).user(u).build());
+        tcr.save(TimelineComment.builder()
+                .contents(atcf.getContents())
+                .timeline(t)
+                .user(u)
+                .build());
     }
 
     @Override
@@ -52,7 +54,12 @@ public class TimelineCommentService implements TimelineCommentServiceInterface {
         if (t == null) {
             throw new TimelineNotFoundException();
         }
-        tcr.save(TimelineComment.builder().user(u).idx(tcidx).contents(utcf.getContents()).timeline(t).build());
+        tcr.save(TimelineComment.builder()
+                .user(u)
+                .idx(tcidx)
+                .contents(utcf.getContents())
+                .timeline(t)
+                .build());
     }
 
     @Override

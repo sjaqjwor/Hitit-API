@@ -38,7 +38,7 @@ public class TimelineCommentService implements TimelineCommentServiceInterface {
 
     @Override
     public void addTimelineComment(final User u, final AddTimelineCommentsForm atcf) {
-        System.err.println(atcf.getTidx()+"asdasd");
+        System.err.println(atcf.getTidx() + "asdasd");
         Timeline t = tr.findByIdx(atcf.getTidx());
         if (t == null) {
             throw new TimelineNotFoundException();

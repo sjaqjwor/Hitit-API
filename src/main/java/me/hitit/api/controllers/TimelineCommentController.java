@@ -49,7 +49,9 @@ public class TimelineCommentController {
                                 .build())
                         .build())
                 .collect(Collectors.toList());
-        GetTimelineCommentResponseData gtcrd = GetTimelineCommentResponseData.builder().timelineResponseData(tcrds).build();
+        GetTimelineCommentResponseData gtcrd = GetTimelineCommentResponseData.builder()
+                .timelineResponseData(tcrds)
+                .build();
         return new ResponseEntity<>(new DefaultResponse(gtcrd), HttpStatus.OK);
     }
 

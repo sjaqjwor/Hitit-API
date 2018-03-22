@@ -88,11 +88,11 @@ public class UserController {
                 .name(u.getName())
                 .profileImageKey(u.getProfileImageKey())
                 .build();
-        GetUserSignInResponseData usird = GetUserSignInResponseData.builder()
+        GetUserSignInResponseData gusr = GetUserSignInResponseData.builder()
                 .token(JWT.create(urd.getIdx()))
                 .userResponseData(urd)
                 .build();
-        return new ResponseEntity<>(new DefaultResponse(usird), HttpStatus.OK);
+        return new ResponseEntity<>(new DefaultResponse(gusr), HttpStatus.OK);
     }
 
     @PutMapping("user/{uidx}")

@@ -113,20 +113,4 @@ public class UserController {
                 .build();
         return new ResponseEntity<>(new DefaultResponse(gurd), HttpStatus.OK);
     }
-
-    @ExceptionHandler(NoSuchAlgorithmException.class)
-    public ResponseEntity<?> handleStorageFileNotFound(NoSuchAlgorithmException nsae) {
-        DefaultResponse dr = new DefaultResponse(Status.FAIL, Strings.CAN_NOT_FOUND_ALGORITHM);
-        return new ResponseEntity<>(dr, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<DefaultResponse> userNotFoundExceptionHandler(UserNotFoundException unfe) {
-        return new ResponseEntity<>(new DefaultResponse(Status.NOT_FOUND, Strings.CAN_NOT_FOUND_USER), HttpStatus.OK);
-    }
-
-    @ExceptionHandler(UserConflictException.class)
-    public ResponseEntity<?> userConflictException(UserConflictException uce) {
-        return new ResponseEntity<>(new DefaultResponse(Status.CONFLICT, uce.getMessage()), HttpStatus.OK);
-    }
 }

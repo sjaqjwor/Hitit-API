@@ -13,6 +13,5 @@ public class UserResponseData {
     private String name;
     @NonNull
     private String email;
-    @NonNull
     private String profileImageKey;
 }

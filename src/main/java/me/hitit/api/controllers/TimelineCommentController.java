@@ -41,6 +41,7 @@ public class TimelineCommentController {
                 .map(tc -> TimelineCommentResponseData.builder()
                         .tcidx(tc.getIdx())
                         .contents(tc.getContents())
+                        .ts(tc.getTs().toString())
                         .userResponseData(UserResponseData.builder()
                                 .idx(tc.getUser().getIdx())
                                 .name(tc.getUser().getName())

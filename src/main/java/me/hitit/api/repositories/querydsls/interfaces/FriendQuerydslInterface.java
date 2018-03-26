@@ -1,13 +1,14 @@
 package me.hitit.api.repositories.querydsls.interfaces;
 
+import lombok.NonNull;
 import me.hitit.api.domains.Friend;
 
 import java.util.List;
 
 public interface FriendQuerydslInterface {
-    List<Friend> getFriends(Long tuidx, String[] sort, Long page);
+    List<Friend> getFriends(@NonNull Long tuidx, @NonNull String[] sort, @NonNull Long page);
 
-    Friend updateFriend(final Long tuidx, final Long fuidx);
+    Friend updateFriend(@NonNull Long tuidx, @NonNull Long fuidx);
 
-    List<Friend> getFindFriends(final Long tuidx, final String[] sort, final Long page, final String keyword);
+    List<Friend> getFindFriends(@NonNull Long tuidx, @NonNull String[] sort, @NonNull Long page, @NonNull String keyword);
 }

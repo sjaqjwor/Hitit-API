@@ -1,5 +1,6 @@
 package me.hitit.api.services;
 
+import lombok.NonNull;
 import me.hitit.api.controllers.forms.UpdateFriendBlockForm;
 import me.hitit.api.domains.Friend;
 import me.hitit.api.repositories.FriendRepository;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Service("FriendService")
 public class FriendService implements FriendServiceInterface {
+    @NonNull
     @Autowired
     private FriendRepository fr;
 
@@ -21,14 +23,12 @@ public class FriendService implements FriendServiceInterface {
 
     @Override
     public List<Friend> getFriends(Long tuidx, String sort, Long page) {
-        String[] resultSorts = sort.split(",");
-        return fr.getFriends(tuidx, resultSorts, page);
+        return fr.getFriends(tuidx, sort.split(","), page);
     }
 
     @Override
     public List<Friend> getFindFriends(Long tuidx, String sort, Long page, String keyword) {
-        String[] resultSorts = sort.split(",");
-        return fr.getFindFriends(tuidx, resultSorts, page, keyword);
+        return fr.getFindFriends(tuidx, sort.split(","), page, keyword);
     }
 
     @Override

@@ -28,7 +28,6 @@ public class FriendControllerTest {
 
     @Autowired
     private WebApplicationContext wac;
-
     private MockMvc mm;
 
     @Before
@@ -46,8 +45,7 @@ public class FriendControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("Authorization", token))
                 .andDo(print())
-                .andExpect(status()
-                        .isOk())
+                .andExpect(status().isOk())
                 .andReturn();
         LOG.info(mr.getResponse().getContentAsString());
     }

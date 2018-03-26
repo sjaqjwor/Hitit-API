@@ -1,6 +1,7 @@
 package me.hitit.api.controllers;
 
 import io.swagger.annotations.Api;
+import lombok.NonNull;
 import me.hitit.api.controllers.forms.AddFriendsForm;
 import me.hitit.api.controllers.forms.UpdateFriendBlockForm;
 import me.hitit.api.controllers.responses.DefaultResponse;
@@ -16,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 @RequestMapping("")
 @Api
 public class FriendController {
+    @NonNull
     @Autowired
     FriendService fs;
 
@@ -31,7 +32,7 @@ public class FriendController {
     @Auth
     @ResponseBody
     public ResponseEntity<DefaultResponse> getFriends(
-            @Valid @RequestHeader("Authorization") String jwt, @RequestParam("page") Long page,
+            @RequestHeader("Authorization") String jwt, @RequestParam("page") Long page,
             @RequestParam("sort") String sort, @ApiIgnore User u) throws Exception {
         List<Friend> friends = fs.getFriends(u.getIdx(), sort, page);
         List<FriendResponseData> frds = friends.stream().map(f -> FriendResponseData.builder()
@@ -50,7 +51,7 @@ public class FriendController {
     @Auth
     @ResponseBody
     public ResponseEntity<DefaultResponse> findFriends(
-            @Valid @RequestHeader("Authorization") String jwt, @RequestParam("page") Long page,
+            @RequestHeader("Authorization") String jwt, @RequestParam("page") Long page,
             @RequestParam("sort") String sort, @PathVariable("keyword") String keyword, @ApiIgnore User u) {
         List<Friend> friends = fs.getFindFriends(u.getIdx(), sort, page, keyword);
         List<FriendResponseData> frds = friends.stream().map(f -> FriendResponseData.builder()
@@ -68,7 +69,7 @@ public class FriendController {
     @PutMapping("friends")
     @Auth
     @ResponseBody
-    public ResponseEntity<DefaultResponse> addFriends(@Valid @RequestHeader("Authorization") String jwt, AddFriendsForm aff) {
+    public ResponseEntity<DefaultResponse> addFriends(@RequestHeader("Authorization") String jwt, AddFriendsForm aff) {
         DefaultResponse dr = new DefaultResponse();
         return new ResponseEntity<>(dr, HttpStatus.OK);
     }
@@ -77,7 +78,7 @@ public class FriendController {
     @Auth
     @ResponseBody
     public ResponseEntity<DefaultResponse> updateFriendBlock(
-            @Valid @RequestHeader("Authorization") String jwt, @PathVariable("fuidx") Long fuidx,
+            @RequestHeader("Authorization") String jwt, @PathVariable("fuidx") Long fuidx,
             @ApiIgnore User u, @RequestBody UpdateFriendBlockForm ufbf) throws Exception {
         Friend f = fs.updateFriendBlock(u.getIdx(), fuidx, ufbf);
         FriendResponseData frd = FriendResponseData.builder()

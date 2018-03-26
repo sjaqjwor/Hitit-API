@@ -4,6 +4,7 @@ import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.SimplePath;
+import lombok.NonNull;
 import me.hitit.api.domains.Friend;
 import me.hitit.api.domains.QFriend;
 import me.hitit.api.domains.QUser;
@@ -15,7 +16,9 @@ import java.util.List;
 
 @Repository
 public class FriendRepositoryImpl extends QueryDslRepositorySupport implements FriendQuerydslInterface {
+    @NonNull
     private final QFriend qf = QFriend.friend;
+    @NonNull
     private final QUser qu = QUser.user;
 
     public FriendRepositoryImpl() {
@@ -23,22 +26,27 @@ public class FriendRepositoryImpl extends QueryDslRepositorySupport implements F
     }
 
     @Override
-    public List<Friend> getFriends(Long tuidx, String[] sorts, Long page) {
-        OrderSpecifier obj[] = new OrderSpecifier[sorts.length];
+    public List<Friend> getFriends(@NonNull Long tuidx, @NonNull String[] sorts, @NonNull Long page) {
+        OrderSpecifier oss[] = new OrderSpecifier[sorts.length];
         for (int i = 0; i < sorts.length; i++) {
-            Order order = sorts[i].substring(0, 1).equals("+") ? Order.ASC : Order.DESC;
-            SimplePath<Object> filedPath = Expressions.path(Object.class, qf.friendPk.friendUser, sorts[i].substring(1, sorts[i].length()));
-            obj[i] = new OrderSpecifier(order, filedPath);
+            Order order = sorts[i].indexOf(0) == '+'
+                    ? Order.ASC
+                    : Order.DESC;
+            SimplePath<Object> sortProperty = Expressions.path(
+                    Object.class,
+                    qf.friendPk.friendUser,
+                    sorts[i].substring(1, sorts[i].length()));
+            oss[i] = new OrderSpecifier(order, sortProperty);
         }
         return from(qf).join(qf.friendPk.targetUser, qu)
                 .where(qf.friendPk.targetUser.idx.eq(tuidx))
-                .orderBy(obj)
+                .orderBy(oss)
                 .limit(page)
                 .fetch();
     }
 
     @Override
-    public Friend updateFriend(Long tuidx, Long fuidx) {
+    public Friend updateFriend(@NonNull Long tuidx, @NonNull Long fuidx) {
         return from(qf).join(qf.friendPk.targetUser, qu)
                 .where(qf.friendPk.targetUser.idx.eq(tuidx)
                         .and(qf.friendPk.friendUser.idx.eq(fuidx)))
@@ -46,13 +54,18 @@ public class FriendRepositoryImpl extends QueryDslRepositorySupport implements F
     }
 
     @Override
-    public List<Friend> getFindFriends(Long tuidx, String[] sorts, Long page, String keyword) {
-        OrderSpecifier obj[] = new OrderSpecifier[sorts.length];
+    public List<Friend> getFindFriends(@NonNull Long tuidx, @NonNull String[] sorts,
+                                       @NonNull Long page, @NonNull String keyword) {
+        OrderSpecifier oss[] = new OrderSpecifier[sorts.length];
         for (int i = 0; i < sorts.length; i++) {
-            Order order = sorts[i].substring(0, 1).equals("+") ? Order.ASC : Order.DESC;
-            SimplePath<Object> filedPath = Expressions.path(
-                    Object.class, qf.friendPk.friendUser, sorts[i].substring(1, sorts[i].length()));
-            obj[i] = new OrderSpecifier(order, filedPath);
+            Order order = sorts[i].indexOf(0) == '+'
+                    ? Order.ASC
+                    : Order.DESC;
+            SimplePath<Object> sortProperty = Expressions.path(
+                    Object.class,
+                    qf.friendPk.friendUser,
+                    sorts[i].substring(1, sorts[i].length()));
+            oss[i] = new OrderSpecifier(order, sortProperty);
         }
         return from(qf).join(qf.friendPk.targetUser, qu)
                 .where(qf.friendPk.targetUser.idx.eq(tuidx)
@@ -62,7 +75,8 @@ public class FriendRepositoryImpl extends QueryDslRepositorySupport implements F
                                         Expressions.asString("%").concat(keyword).concat("%")))
                                 .or(qf.friendPk.friendUser.phoneNumber.like(
                                         Expressions.asString("%").concat(keyword).concat("%")))))
-                .orderBy(obj)
-                .limit(page).fetch();
+                .orderBy(oss)
+                .limit(page)
+                .fetch();
     }
 }

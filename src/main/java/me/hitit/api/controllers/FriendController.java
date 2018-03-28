@@ -47,6 +47,17 @@ public class FriendController {
         return new ResponseEntity<>(new DefaultResponse(gfrd), HttpStatus.OK);
     }
 
+    @GetMapping("friendsDto")
+    @Auth
+    @ResponseBody
+    public ResponseEntity<DefaultResponse> getFriendsDto(
+            @RequestHeader("Authorization") String jwt, @RequestParam("page") Long page,
+            @RequestParam("sort") String sort, @ApiIgnore User u) throws Exception {
+        List<FriendResponseData> frds = fs.getFriendsDto(u.getIdx(), sort, page);
+        GetFriendResponseData gfrd = GetFriendResponseData.builder().friendResponseDatas(frds).build();
+        return new ResponseEntity<>(new DefaultResponse(gfrd), HttpStatus.OK);
+    }
+
     @GetMapping("friends/find/{keyword}")
     @Auth
     @ResponseBody

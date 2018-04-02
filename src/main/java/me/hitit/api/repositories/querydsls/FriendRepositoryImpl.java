@@ -12,6 +12,7 @@ import me.hitit.api.repositories.querydsls.interfaces.FriendQuerydslInterface;
 import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 @Repository
@@ -25,6 +26,7 @@ public class FriendRepositoryImpl extends QueryDslRepositorySupport implements F
         super(Friend.class);
     }
 
+    @Nullable
     @Override
     public List<Friend> getFriends(@NonNull Long tuidx, @NonNull String[] sorts, @NonNull Long page) {
         OrderSpecifier oss[] = new OrderSpecifier[sorts.length];
@@ -45,6 +47,7 @@ public class FriendRepositoryImpl extends QueryDslRepositorySupport implements F
                 .fetch();
     }
 
+    @Nullable
     @Override
     public Friend updateFriend(@NonNull Long tuidx, @NonNull Long fuidx) {
         return from(qf).join(qf.friendPk.targetUser, qu)
@@ -53,6 +56,7 @@ public class FriendRepositoryImpl extends QueryDslRepositorySupport implements F
                 .fetchOne();
     }
 
+    @Nullable
     @Override
     public List<Friend> getFindFriends(@NonNull Long tuidx, @NonNull String[] sorts,
                                        @NonNull Long page, @NonNull String keyword) {

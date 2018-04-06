@@ -33,8 +33,8 @@ public class TimelineCommentController {
 
     @GetMapping("timeline/{tidx}/comments")
     public ResponseEntity<DefaultResponse> getTimelineComments(
-            @RequestHeader("Authorization") final String jwt, @RequestParam("page") Long page,
-            @RequestParam("sort") String sort, @PathVariable("tidx") final Long tidx) {
+            @RequestHeader("Authorization")  String jwt, @RequestParam("page") Long page,
+            @RequestParam("sort") String sort, @PathVariable("tidx")  Long tidx) {
         List<TimelineCommentResponseData> tcrds = tcs.getTimelineComment(tidx, sort, page);
         GetTimelineCommentResponseData gtcrd = GetTimelineCommentResponseData.builder()
                 .timelineResponseData(tcrds)
@@ -45,8 +45,8 @@ public class TimelineCommentController {
     @PostMapping("timeline/comment")
     @Auth
     public ResponseEntity<DefaultResponse> addTimelineComment(
-            @RequestHeader("Authorization") final String jwt, @ApiIgnore final User u,
-            @Valid @RequestBody final AddTimelineCommentsForm atcf) {
+            @RequestHeader("Authorization")  String jwt, @ApiIgnore  User u,
+            @Valid @RequestBody AddTimelineCommentsForm atcf) {
         tcs.addTimelineComment(u, atcf);
         return new ResponseEntity<>(new DefaultResponse(), HttpStatus.OK);
     }
@@ -54,9 +54,9 @@ public class TimelineCommentController {
     @PutMapping("timeline/{tidx}/comment/{tcidx}")
     @Auth
     public ResponseEntity<DefaultResponse> updateTimelineComment(
-            @RequestHeader("Authorization") final String jwt, @ApiIgnore final User u,
-            @PathVariable("tidx") final Long tidx, @PathVariable("tcidx") final Long tcidx,
-            @Valid @RequestBody final UpdateTimelineCommentForm utcf) {
+            @RequestHeader("Authorization") String jwt, @ApiIgnore User u,
+            @PathVariable("tidx")  Long tidx, @PathVariable("tcidx") Long tcidx,
+            @Valid @RequestBody  UpdateTimelineCommentForm utcf) {
         tcs.updateTimelineComment(u, utcf, tidx, tcidx);
         return new ResponseEntity<>(new DefaultResponse(), HttpStatus.OK);
 
@@ -65,8 +65,8 @@ public class TimelineCommentController {
     @DeleteMapping("timeline/{tidx}/comment/{tcidx}")
     @Auth
     public ResponseEntity<DefaultResponse> deleteTimelineComment(
-            @RequestHeader("Authorization") final String jwt, @PathVariable("tidx") final Long tidx,
-            @PathVariable("tcidx") final Long tcidx) {
+            @RequestHeader("Authorization")  String jwt, @PathVariable("tidx")  Long tidx,
+            @PathVariable("tcidx")  Long tcidx) {
         tcs.deleteTimelineComment(tcidx, tidx);
         return new ResponseEntity<>(new DefaultResponse(), HttpStatus.OK);
     }

@@ -34,7 +34,7 @@ public class TimelineCommentController {
     @GetMapping("timeline/{tidx}/comments")
     public ResponseEntity<DefaultResponse> getTimelineComments(
             @RequestHeader("Authorization")  String jwt, @RequestParam("page") Long page,
-            @RequestParam("sort") String sort, @PathVariable("tidx")  Long tidx) {
+            @RequestParam(value = "sort",defaultValue = "+ts") String sort, @PathVariable("tidx")  Long tidx) {
         List<TimelineCommentResponseData> tcrds = tcs.getTimelineComment(tidx, sort, page);
         GetTimelineCommentResponseData gtcrd = GetTimelineCommentResponseData.builder()
                 .timelineResponseData(tcrds)

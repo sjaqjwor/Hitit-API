@@ -2,6 +2,8 @@ package me.hitit.api.services;
 
 import me.hitit.api.controllers.forms.AddTimelineCommentsForm;
 import me.hitit.api.controllers.forms.UpdateTimelineCommentForm;
+import me.hitit.api.controllers.responses.data.timelinecomment.TimelineCommentResponseData;
+import me.hitit.api.controllers.responses.data.user.UserResponseData;
 import me.hitit.api.domains.Timeline;
 import me.hitit.api.domains.TimelineComment;
 import me.hitit.api.domains.User;
@@ -9,11 +11,13 @@ import me.hitit.api.exceptions.timeline.TimelineNotFoundException;
 import me.hitit.api.repositories.TimelineCommentRepository;
 import me.hitit.api.repositories.TimelineRepository;
 import me.hitit.api.services.interfaces.TimelineCommentServiceInterface;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service("TimelineCommentService")
 public class TimelineCommentService implements TimelineCommentServiceInterface {
@@ -25,14 +29,28 @@ public class TimelineCommentService implements TimelineCommentServiceInterface {
     private TimelineRepository tr;
 
     @Override
-    public List<TimelineComment> getTimelineComment(Long tidx, String sort, Long page) {
+    public List<TimelineCommentResponseData> getTimelineComment(Long tidx, String sort, Long page) {
 
         Timeline timeline = tr.findByIdx(tidx);
         if (timeline == null) {
             throw new TimelineNotFoundException();
         }
         String[] sorts = sort.split(",");
-        return tcr.getTimelineComment(tidx, sorts, page);
+        List<TimelineComment> timelineComments = tcr.getTimelineComment(tidx, sorts, page);
+        return Optional.ofNullable(timelineComments).orElse(new ArrayList<>())
+                .stream()
+                .map(tc -> TimelineCommentResponseData.builder()
+                        .tcidx(tc.getIdx())
+                        .contents(tc.getContents())
+                        .ts(tc.getTs().toString())
+                        .userResponseData(UserResponseData.builder()
+                                .idx(tc.getUser().getIdx())
+                                .name(tc.getUser().getName())
+                                .email(tc.getUser().getEmail())
+                                .profileImageKey(tc.getUser().getProfileImageKey())
+                                .build())
+                        .build())
+                .collect(Collectors.toList());
     }
 
     @Override

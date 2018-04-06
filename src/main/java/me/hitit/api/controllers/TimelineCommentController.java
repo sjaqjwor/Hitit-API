@@ -35,21 +35,7 @@ public class TimelineCommentController {
     public ResponseEntity<DefaultResponse> getTimelineComments(
             @RequestHeader("Authorization") final String jwt, @RequestParam("page") Long page,
             @RequestParam("sort") String sort, @PathVariable("tidx") final Long tidx) {
-        List<TimelineComment> timelineComments = tcs.getTimelineComment(tidx, sort, page);
-        List<TimelineCommentResponseData> tcrds = Optional.ofNullable(timelineComments).orElse(new ArrayList<>())
-                .stream()
-                .map(tc -> TimelineCommentResponseData.builder()
-                        .tcidx(tc.getIdx())
-                        .contents(tc.getContents())
-                        .ts(tc.getTs().toString())
-                        .userResponseData(UserResponseData.builder()
-                                .idx(tc.getUser().getIdx())
-                                .name(tc.getUser().getName())
-                                .email(tc.getUser().getEmail())
-                                .profileImageKey(tc.getUser().getProfileImageKey())
-                                .build())
-                        .build())
-                .collect(Collectors.toList());
+        List<TimelineCommentResponseData> tcrds = tcs.getTimelineComment(tidx, sort, page);
         GetTimelineCommentResponseData gtcrd = GetTimelineCommentResponseData.builder()
                 .timelineResponseData(tcrds)
                 .build();

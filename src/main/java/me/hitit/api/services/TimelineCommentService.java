@@ -62,7 +62,7 @@ public class TimelineCommentService implements TimelineCommentServiceInterface {
     }
 
     @Override
-    public void addTimelineComment(final User u, final AddTimelineCommentsForm atcf) {
+    public void addTimelineComment(User u,AddTimelineCommentsForm atcf) {
         Timeline t = tr.findByIdx(atcf.getTidx());
         if (t == null) {
             throw new TimelineNotFoundException();
@@ -75,7 +75,7 @@ public class TimelineCommentService implements TimelineCommentServiceInterface {
     }
 
     @Override
-    public void updateTimelineComment(final User u, final UpdateTimelineCommentForm utcf, Long tidx, Long tcidx) {
+    public void updateTimelineComment(User u,UpdateTimelineCommentForm utcf, Long tidx, Long tcidx) {
         Timeline t = tr.findByIdx(tidx);
         if (t == null) {
             throw new TimelineNotFoundException();
@@ -89,7 +89,7 @@ public class TimelineCommentService implements TimelineCommentServiceInterface {
     }
 
     @Override
-    public void deleteTimelineComment(final Long tcidx, final Long tidx) {
+    public void deleteTimelineComment(Long tcidx,Long tidx) {
         Timeline t = tr.findByIdx(tidx);
         if (t == null) {
             throw new TimelineNotFoundException();

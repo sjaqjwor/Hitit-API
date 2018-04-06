@@ -8,6 +8,7 @@ import me.hitit.api.domains.Timeline;
 import me.hitit.api.domains.TimelineComment;
 import me.hitit.api.domains.User;
 import me.hitit.api.exceptions.timeline.TimelineNotFoundException;
+import me.hitit.api.exceptions.timelinecomment.SortException;
 import me.hitit.api.repositories.TimelineCommentRepository;
 import me.hitit.api.repositories.TimelineRepository;
 import me.hitit.api.services.interfaces.TimelineCommentServiceInterface;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,7 +37,13 @@ public class TimelineCommentService implements TimelineCommentServiceInterface {
         if (timeline == null) {
             throw new TimelineNotFoundException();
         }
-        String[] sorts = sort.split(",");
+        String[] sorts = (String[])Arrays.stream(sort.split(","))
+                .filter(s -> {
+                    if(s.charAt(0)!='+'&&s.charAt(0)!='-'){
+                            throw  new SortException();
+                    }
+                    return true;
+        }).toArray();
         List<TimelineComment> timelineComments = tcr.getTimelineComment(tidx, sorts, page);
         return Optional.ofNullable(timelineComments).orElse(new ArrayList<>())
                 .stream()

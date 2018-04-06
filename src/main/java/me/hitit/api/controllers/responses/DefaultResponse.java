@@ -6,6 +6,7 @@ public class DefaultResponse {
     @NonNull
     private Status status;
     private Object data;
+    private String msg;
 
     public enum Status {
         SUCCESS, FAIL, NOT_FOUND, CONFLICT
@@ -42,6 +43,14 @@ public class DefaultResponse {
 
     public void setStatus(final Status status) {
         this.status = status;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public Object getData() {

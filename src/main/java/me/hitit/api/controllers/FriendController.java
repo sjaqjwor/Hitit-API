@@ -32,27 +32,10 @@ public class FriendController {
     @Auth
     @ResponseBody
     public ResponseEntity<DefaultResponse> getFriends(
-            @RequestHeader("Authorization") String jwt, @RequestParam("page") Long page,
-            @RequestParam("sort") String sort, @ApiIgnore User u) throws Exception {
-        List<Friend> friends = fs.getFriends(u.getIdx(), sort, page);
-        List<FriendResponseData> frds = friends.stream().map(f -> FriendResponseData.builder()
-                .fuidx(f.getFriendPk().getFriendUser().getIdx())
-                .email(f.getFriendPk().getFriendUser().getEmail())
-                .name(f.getFriendPk().getFriendUser().getName())
-                .phoneNumber(f.getFriendPk().getFriendUser().getPhoneNumber())
-                .checkBlock(f.getCheckBlock())
-                .build())
-                .collect(Collectors.toList());
-        GetFriendResponseData gfrd = GetFriendResponseData.builder().friendResponseDatas(frds).build();
-        return new ResponseEntity<>(new DefaultResponse(gfrd), HttpStatus.OK);
-    }
-
-    @GetMapping("friendsDto")
-    @Auth
-    @ResponseBody
-    public ResponseEntity<DefaultResponse> getFriendsDto(
-            @RequestHeader("Authorization") String jwt, @RequestParam("page") Long page,
-            @RequestParam("sort") String sort, @ApiIgnore User u) throws Exception {
+            @RequestHeader("Authorization") String jwt,
+            @RequestParam("page") Long page,
+            @RequestParam("sort") String sort,
+            @ApiIgnore User u) throws Exception {
         List<FriendResponseData> frds = fs.getFriendsDto(u.getIdx(), sort, page);
         GetFriendResponseData gfrd = GetFriendResponseData.builder().friendResponseDatas(frds).build();
         return new ResponseEntity<>(new DefaultResponse(gfrd), HttpStatus.OK);

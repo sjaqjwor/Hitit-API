@@ -39,12 +39,12 @@ public class FriendService implements FriendServiceInterface {
     @Override
     public Friend updateFriendBlock(Long tuidx, Long fuidx, UpdateFriendBlockForm ufbf) {
         Friend f = fr.updateFriend(tuidx, fuidx);
-        if (f.getCheckBlock()) {
-            ufbf.setCheckBlock(false);
-            f.setCheckBlock(ufbf.getCheckBlock());
-        } else if (!f.getCheckBlock()) {
-            ufbf.setCheckBlock(true);
-            f.setCheckBlock(ufbf.getCheckBlock());
+        if (f.getIsBlock()) {
+            ufbf.setIsBlock(false);
+            f.setIsBlock(ufbf.getIsBlock());
+        } else if (!f.getIsBlock()) {
+            ufbf.setIsBlock(true);
+            f.setIsBlock(ufbf.getIsBlock());
         }
         fr.save(f);
         return f;
@@ -63,14 +63,14 @@ public class FriendService implements FriendServiceInterface {
             dto.setName(friend.getFriendPk().getFriendUser().getName());
             dto.setEmail(friend.getFriendPk().getFriendUser().getEmail());
             dto.setPhoneNumber(friend.getFriendPk().getFriendUser().getPhoneNumber());
-            dto.setCheckBlock(friend.getCheckBlock());
+            dto.setIsBlock(friend.getIsBlock());
         }
         List<FriendResponseData> frds = friendDtos.stream().map(f -> FriendResponseData.builder()
                 .fuidx(f.getFuidx())
                 .email(f.getEmail())
                 .name(f.getName())
                 .phoneNumber(f.getPhoneNumber())
-                .checkBlock(f.getCheckBlock())
+                .checkBlock(f.getIsBlock())
                 .build())
                 .collect(Collectors.toList());
         return frds;

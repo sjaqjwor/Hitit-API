@@ -14,5 +14,5 @@ public class FriendDTO {
     private String name;
     private String email;
     private String phoneNumber;
-    private Boolean checkBlock;
+    private Boolean isBlock;
 }

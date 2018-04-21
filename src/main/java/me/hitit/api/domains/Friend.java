@@ -17,6 +17,6 @@ public class Friend {
     @EmbeddedId
     private FriendPrimaryKey friendPk;
 
-    @Column(name = "checkBlock")
-    private Boolean checkBlock;
+    @Column(name = "isBlock")
+    private Boolean isBlock;
 }

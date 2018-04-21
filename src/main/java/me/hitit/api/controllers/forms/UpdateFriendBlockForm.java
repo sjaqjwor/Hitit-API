@@ -10,5 +10,5 @@ import lombok.NonNull;
 @AllArgsConstructor
 public class UpdateFriendBlockForm {
     @NonNull
-    private Boolean checkBlock;
+    private Boolean isBlock;
 }

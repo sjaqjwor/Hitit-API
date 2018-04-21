@@ -53,7 +53,7 @@ public class FriendController {
                 .email(f.getFriendPk().getFriendUser().getEmail())
                 .name(f.getFriendPk().getFriendUser().getName())
                 .phoneNumber(f.getFriendPk().getFriendUser().getPhoneNumber())
-                .checkBlock(f.getCheckBlock())
+                .isBlock(f.getIsBlock())
                 .build())
                 .collect(Collectors.toList());
         GetFriendResponseData gfrd = GetFriendResponseData.builder().friendResponseDatas(frds).build();
@@ -80,7 +80,7 @@ public class FriendController {
                 .email(f.getFriendPk().getFriendUser().getEmail())
                 .name(f.getFriendPk().getFriendUser().getName())
                 .phoneNumber(f.getFriendPk().getFriendUser().getPhoneNumber())
-                .checkBlock(f.getCheckBlock())
+                .isBlock(f.getIsBlock())
                 .build();
         GetFriendResponseData gfrd = GetFriendResponseData.builder()
                 .friendResponseData(frd)

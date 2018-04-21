@@ -16,5 +16,5 @@ public class FriendResponseData {
     @NonNull
     private String email;
     @NonNull
-    private Boolean checkBlock;
+    private Boolean isBlock;
 }

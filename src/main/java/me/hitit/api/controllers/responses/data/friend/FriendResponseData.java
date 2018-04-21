@@ -15,6 +15,4 @@ public class FriendResponseData {
     private String phoneNumber;
     @NonNull
     private String email;
-    @NonNull
-    private Boolean isBlock;
 }

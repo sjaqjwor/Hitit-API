@@ -8,6 +8,8 @@ import java.util.List;
 public interface FriendQuerydslInterface {
     List<Friend> getFriends(@NonNull Long tuidx, @NonNull String[] sort, @NonNull Long page);
 
+    List<Friend> getBlockFriends(@NonNull Long tuidx, @NonNull String[] sort, @NonNull Long page);
+
     Friend updateFriend(@NonNull Long tuidx, @NonNull Long fuidx);
 
     List<Friend> getFindFriends(@NonNull Long tuidx, @NonNull String[] sort, @NonNull Long page, @NonNull String keyword);

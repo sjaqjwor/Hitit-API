@@ -1,14 +1,13 @@
 package me.hitit.api.repositories.querydsls;
 
-import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
-import com.querydsl.core.types.dsl.Expressions;
-import com.querydsl.core.types.dsl.SimplePath;
 import lombok.NonNull;
 import me.hitit.api.domains.Friend;
 import me.hitit.api.domains.QFriend;
 import me.hitit.api.domains.QUser;
 import me.hitit.api.repositories.querydsls.interfaces.FriendQuerydslInterface;
+import me.hitit.api.utils.querydsls.SearchKeyword;
+import me.hitit.api.utils.sort.ToSorts;
 import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
@@ -29,19 +28,24 @@ public class FriendRepositoryImpl extends QueryDslRepositorySupport implements F
     @Nullable
     @Override
     public List<Friend> getFriends(@NonNull Long tuidx, @NonNull String[] sorts, @NonNull Long page) {
-        OrderSpecifier oss[] = new OrderSpecifier[sorts.length];
-        for (int i = 0; i < sorts.length; i++) {
-            Order order = sorts[i].indexOf(0) == '+'
-                    ? Order.ASC
-                    : Order.DESC;
-            SimplePath<Object> sortProperty = Expressions.path(
-                    Object.class,
-                    qf.friendPk.friendUser,
-                    sorts[i].substring(1, sorts[i].length()));
-            oss[i] = new OrderSpecifier(order, sortProperty);
-        }
-        return from(qf).join(qf.friendPk.targetUser, qu)
-                .where(qf.friendPk.targetUser.idx.eq(tuidx))
+        ToSorts ts = new ToSorts(sorts);
+        OrderSpecifier[] oss = ts.getToSorts();
+        return from(qf)
+                .join(qf.friendPk.targetUser, qu)
+                .where(qf.friendPk.targetUser.idx.eq(tuidx).and(qf.isBlock.eq(false)))
+                .orderBy(oss)
+                .limit(page)
+                .fetch();
+    }
+
+    @Nullable
+    @Override
+    public List<Friend> getBlockFriends(@NonNull Long tuidx, @NonNull String[] sorts, @NonNull Long page) {
+        ToSorts ts = new ToSorts(sorts);
+        OrderSpecifier[] oss = ts.getToSorts();
+        return from(qf)
+                .join(qf.friendPk.targetUser, qu)
+                .where(qf.friendPk.targetUser.idx.eq(tuidx).and(qf.isBlock.eq(true)))
                 .orderBy(oss)
                 .limit(page)
                 .fetch();
@@ -50,7 +54,8 @@ public class FriendRepositoryImpl extends QueryDslRepositorySupport implements F
     @Nullable
     @Override
     public Friend updateFriend(@NonNull Long tuidx, @NonNull Long fuidx) {
-        return from(qf).join(qf.friendPk.targetUser, qu)
+        return from(qf)
+                .join(qf.friendPk.targetUser, qu)
                 .where(qf.friendPk.targetUser.idx.eq(tuidx)
                         .and(qf.friendPk.friendUser.idx.eq(fuidx)))
                 .fetchOne();
@@ -60,25 +65,18 @@ public class FriendRepositoryImpl extends QueryDslRepositorySupport implements F
     @Override
     public List<Friend> getFindFriends(@NonNull Long tuidx, @NonNull String[] sorts,
                                        @NonNull Long page, @NonNull String keyword) {
-        OrderSpecifier oss[] = new OrderSpecifier[sorts.length];
-        for (int i = 0; i < sorts.length; i++) {
-            Order order = sorts[i].indexOf(0) == '+'
-                    ? Order.ASC
-                    : Order.DESC;
-            SimplePath<Object> sortProperty = Expressions.path(
-                    Object.class,
-                    qf.friendPk.friendUser,
-                    sorts[i].substring(1, sorts[i].length()));
-            oss[i] = new OrderSpecifier(order, sortProperty);
-        }
-        return from(qf).join(qf.friendPk.targetUser, qu)
+        ToSorts ts = new ToSorts(sorts);
+        OrderSpecifier[] oss = ts.getToSorts();
+        SearchKeyword sk = new SearchKeyword(keyword);
+        return from(qf)
+                .join(qf.friendPk.targetUser, qu)
                 .where(qf.friendPk.targetUser.idx.eq(tuidx)
                         .and(qf.friendPk.friendUser.email.like(
-                                Expressions.asString("%").concat(keyword).concat("%"))
+                                sk.getSearchKeyword(keyword))
                                 .or(qf.friendPk.friendUser.name.like(
-                                        Expressions.asString("%").concat(keyword).concat("%")))
+                                        sk.getSearchKeyword(keyword)))
                                 .or(qf.friendPk.friendUser.phoneNumber.like(
-                                        Expressions.asString("%").concat(keyword).concat("%")))))
+                                        sk.getSearchKeyword(keyword)))))
                 .orderBy(oss)
                 .limit(page)
                 .fetch();

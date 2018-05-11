@@ -8,9 +8,9 @@ import java.util.List;
 
 @Data
 @Builder
-public class GetFriendResponseData {
+public class GetFriendsResponseData {
     @NonNull
-    private List<FriendResponseData> friendResponseDatas;
+    private List<FriendResponseData> friendResponseData;
     @NonNull
-    private FriendResponseData friendResponseData;
+    private List<BlockFriendsResponseData> blockFriendsResponseData;
 }

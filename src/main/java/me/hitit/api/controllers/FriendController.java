@@ -5,8 +5,9 @@ import lombok.NonNull;
 import me.hitit.api.controllers.forms.AddFriendsForm;
 import me.hitit.api.controllers.forms.UpdateFriendBlockForm;
 import me.hitit.api.controllers.responses.DefaultResponse;
+import me.hitit.api.controllers.responses.data.friend.BlockFriendsResponseData;
 import me.hitit.api.controllers.responses.data.friend.FriendResponseData;
-import me.hitit.api.controllers.responses.data.friend.GetFriendResponseData;
+import me.hitit.api.controllers.responses.data.friend.GetFriendsResponseData;
 import me.hitit.api.domains.Friend;
 import me.hitit.api.domains.User;
 import me.hitit.api.services.FriendService;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -36,8 +38,21 @@ public class FriendController {
             @RequestParam("page") Long page,
             @RequestParam("sort") String sort,
             @ApiIgnore User u) throws Exception {
-        List<FriendResponseData> frds = fs.getFriendsDto(u.getIdx(), sort, page);
-        GetFriendResponseData gfrd = GetFriendResponseData.builder().friendResponseDatas(frds).build();
+        List<FriendResponseData> frds = fs.getFriends(u.getIdx(), sort, page);
+        GetFriendsResponseData gfrd = GetFriendsResponseData.builder().friendResponseData(frds).build();
+        return new ResponseEntity<>(new DefaultResponse(gfrd), HttpStatus.OK);
+    }
+
+    @GetMapping("friends/block")
+    @Auth
+    @ResponseBody
+    public ResponseEntity<DefaultResponse> getBlockFriends(
+            @RequestHeader("Authorization") String jwt,
+            @RequestParam("page") Long page,
+            @RequestParam("sort") String sort,
+            @ApiIgnore User u) throws Exception {
+        List<BlockFriendsResponseData> bfrds = fs.getBlockFriends(u.getIdx(), sort, page);
+        GetFriendsResponseData gfrd = GetFriendsResponseData.builder().blockFriendsResponseData(bfrds).build();
         return new ResponseEntity<>(new DefaultResponse(gfrd), HttpStatus.OK);
     }
 
@@ -45,17 +60,13 @@ public class FriendController {
     @Auth
     @ResponseBody
     public ResponseEntity<DefaultResponse> findFriends(
-            @RequestHeader("Authorization") String jwt, @RequestParam("page") Long page,
-            @RequestParam("sort") String sort, @PathVariable("keyword") String keyword, @ApiIgnore User u) {
-        List<Friend> friends = fs.getFindFriends(u.getIdx(), sort, page, keyword);
-        List<FriendResponseData> frds = friends.stream().map(f -> FriendResponseData.builder()
-                .fuidx(f.getFriendPk().getFriendUser().getIdx())
-                .email(f.getFriendPk().getFriendUser().getEmail())
-                .name(f.getFriendPk().getFriendUser().getName())
-                .phoneNumber(f.getFriendPk().getFriendUser().getPhoneNumber())
-                .build())
-                .collect(Collectors.toList());
-        GetFriendResponseData gfrd = GetFriendResponseData.builder().friendResponseDatas(frds).build();
+            @RequestHeader("Authorization") String jwt,
+            @RequestParam("page") Long page,
+            @RequestParam("sort") String sort,
+            @PathVariable("keyword") String keyword,
+            @ApiIgnore User u) {
+        List<FriendResponseData> frds = fs.getFindFriends(u.getIdx(), sort, page, keyword);
+        GetFriendsResponseData gfrd = GetFriendsResponseData.builder().friendResponseData(frds).build();
         return new ResponseEntity<>(new DefaultResponse(gfrd), HttpStatus.OK);
     }
 
@@ -71,18 +82,11 @@ public class FriendController {
     @Auth
     @ResponseBody
     public ResponseEntity<DefaultResponse> updateFriendBlock(
-            @RequestHeader("Authorization") String jwt, @PathVariable("fuidx") Long fuidx,
-            @ApiIgnore User u, @RequestBody UpdateFriendBlockForm ufbf) throws Exception {
-        Friend f = fs.updateFriendBlock(u.getIdx(), fuidx, ufbf);
-        FriendResponseData frd = FriendResponseData.builder()
-                .fuidx(f.getFriendPk().getFriendUser().getIdx())
-                .email(f.getFriendPk().getFriendUser().getEmail())
-                .name(f.getFriendPk().getFriendUser().getName())
-                .phoneNumber(f.getFriendPk().getFriendUser().getPhoneNumber())
-                .build();
-        GetFriendResponseData gfrd = GetFriendResponseData.builder()
-                .friendResponseData(frd)
-                .build();
-        return new ResponseEntity<>(new DefaultResponse(gfrd), HttpStatus.OK);
+            @RequestHeader("Authorization") String jwt,
+            @PathVariable("fuidx") Long fuidx,
+            @ApiIgnore User u,
+            @RequestBody Boolean changeBlock) throws Exception {
+        fs.updateFriendBlock(u.getIdx(), fuidx, changeBlock);
+        return new ResponseEntity<>(new DefaultResponse(), HttpStatus.OK);
     }
 }

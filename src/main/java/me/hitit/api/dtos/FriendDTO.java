@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class FriendDTO {
+public class FriendDto {
     private Long fuidx;
     private String name;
     private String email;

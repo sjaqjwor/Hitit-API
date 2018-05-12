@@ -40,6 +40,7 @@ dependencies {
 	compile('com.querydsl:querydsl-core')
 	compile('com.querydsl:querydsl-apt')
 	compile('com.querydsl:querydsl-jpa')
+	compile group: 'org.modelmapper', name: 'modelmapper', version: '1.1.0'
 }
 
 jar {

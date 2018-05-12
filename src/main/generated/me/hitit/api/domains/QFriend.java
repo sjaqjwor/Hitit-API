@@ -22,7 +22,7 @@ public class QFriend extends EntityPathBase<Friend> {
 
     public static final QFriend friend = new QFriend("friend");
 
-    public final BooleanPath checkBlock = createBoolean("checkBlock");
+    public final BooleanPath isBlock = createBoolean("isBlock");
 
     public final me.hitit.api.domains.primary_keys.QFriendPrimaryKey friendPk;
 
